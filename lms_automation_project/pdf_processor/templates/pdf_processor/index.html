@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LMS Automation System - Saveetha Engineering College</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,77 +13,70 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            background-color: #f0f2f5;
-            color: #212529;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #34495e;
+            line-height: 1.6;
         }
 
         /* ===== HEADER ===== */
         header {
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 12px 24px;
+            padding: 12px 0;
             border-bottom: 1px solid #e0e0e0;
         }
 
         .header-container {
-            max-width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 24px;
-            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 16px;
-            flex: 0 0 auto;
-            min-width: 300px;
+            gap: 15px;
+            flex-shrink: 0;
         }
 
         .logo-img {
-            height: 50px;
+            height: 48px;
             object-fit: contain;
         }
 
         .header-text {
             display: flex;
             flex-direction: column;
-            gap: 2px;
         }
 
         .header-title {
             font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
+            font-weight: 700;
+            color: #1a3a52;
         }
 
         .header-subtitle {
             font-size: 12px;
-            color: #666;
+            color: #7f8c8d;
             font-weight: 400;
         }
 
         .quick-stats {
             display: flex;
-            gap: 32px;
+            gap: 30px;
             align-items: center;
-            border-left: 2px solid #e0e0e0;
-            padding-left: 32px;
-            flex: 0 0 auto;
+            margin-left: auto;
+            padding-left: 30px;
+            border-left: 1px solid #e0e0e0;
         }
 
         .quick-stat {
@@ -97,73 +92,33 @@
 
         .quick-stat-label {
             font-size: 10px;
-            color: #888;
+            color: #95a5a6;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-top: 3px;
-            font-weight: 500;
-        }
-
-        .header-filters {
-            display: flex;
-            gap: 10px;
-            flex: 0 0 auto;
-        }
-
-        .filter-header-btn {
-            padding: 8px 16px;
-            font-size: 12px;
-            background: #ffffff;
-            color: #333;
-            border: 1px solid #d0d0d0;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .filter-header-btn:hover {
-            border-color: #2c5aa0;
-            color: #2c5aa0;
-            background: #f9f9f9;
-        }
-
-        .filter-header-btn.active {
-            background: #2c5aa0;
-            color: white;
-            border-color: #2c5aa0;
+            margin-top: 2px;
         }
 
         /* ===== MAIN CONTENT ===== */
         .container {
-            max-width: 100%;
+            max-width: 1600px;
             margin: 20px auto;
-            padding: 0 24px;
-            flex: 1;
-        }
-
-        .title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 15px;
+            padding: 0 20px;
         }
 
         /* Upload Section */
         .upload-section {
-            background: #ffffff;
+            background: white;
             padding: 20px;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
             border: 1px solid #e0e0e0;
         }
 
         .upload-section h3 {
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            font-size: 14px;
+            color: #1a3a52;
+            margin-bottom: 15px;
+            font-size: 16px;
             font-weight: 600;
         }
 
@@ -179,37 +134,43 @@
         }
 
         .file-label {
-            display: inline-block;
-            padding: 9px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
             background: #2c5aa0;
             color: white;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 12px;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
         }
 
         .file-label:hover {
             background: #1a3a52;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.3);
         }
 
         .btn {
-            padding: 9px 18px;
-            border: 1px solid #d0d0d0;
-            background: #ffffff;
-            color: #333;
-            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border: 1px solid #bdc3c7;
+            background: white;
+            color: #34495e;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .btn:hover:not(:disabled) {
+        .btn:hover {
             border-color: #2c5aa0;
             color: #2c5aa0;
-            background: #f9f9f9;
+            background: #fdfdfd;
         }
 
         .btn-primary {
@@ -218,8 +179,11 @@
             border-color: #2c5aa0;
         }
 
-        .btn-primary:hover:not(:disabled) {
+        .btn-primary:hover {
             background: #1a3a52;
+            border-color: #1a3a52;
+            color: white;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.3);
         }
 
         .btn-success {
@@ -228,204 +192,210 @@
             border-color: #27ae60;
         }
 
-        .btn-success:hover:not(:disabled) {
-            background: #1d7e44;
+        .btn-success:hover {
+            background: #2ecc71;
+            border-color: #2ecc71;
+            color: white;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
         }
 
         .btn:disabled {
-            background: #d3d3d3;
+            background: #ecf0f1;
+            color: #bdc3c7;
+            border-color: #ecf0f1;
             cursor: not-allowed;
-            border-color: #d3d3d3;
-            opacity: 0.6;
+            box-shadow: none;
         }
 
         #selectedFiles {
-            font-size: 11px;
-            color: #666;
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-left: 10px;
         }
 
-        /* Alert */
-        .alert {
-            padding: 11px 14px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            font-size: 12px;
-            border-left: 4px solid #ddd;
-        }
-
-        .alert-success {
-            background: #f0fdf4;
-            border-left-color: #27ae60;
-            color: #1e5631;
-        }
-
-        .alert-danger {
-            background: #fef2f2;
-            border-left-color: #e74c3c;
-            color: #7a1f1a;
-        }
-
-        .alert-warning {
-            background: #fffbf0;
-            border-left-color: #f39c12;
-            color: #7d6608;
-        }
-
-        .alert-info {
-            background: #f0f9ff;
-            border-left-color: #3498db;
-            color: #0d3b66;
-        }
-
-        /* ===== BLOCK LIST LAYOUT ===== */
-        .block-list {
+        /* Filter Tabs */
+        .filter-tabs {
             display: flex;
-            flex-direction: column;
-            gap: 0;
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            gap: 8px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-bottom: 3px solid transparent;
+            background: none;
+            color: #7f8c8d;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: -2px;
+        }
+
+        .filter-btn:hover {
+            color: #34495e;
+        }
+
+        .filter-btn.active {
+            color: #2c5aa0;
+            border-bottom-color: #2c5aa0;
+        }
+
+        /* Table */
+        .table-wrapper {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e0e0e0;
             margin-bottom: 20px;
         }
 
-        /* Block Header (Like Table Header) */
-        .block-header {
-            display: grid;
-            grid-template-columns: 0.5fr 1.5fr 0.9fr 0.9fr 0.9fr 0.9fr 1.5fr;
-            gap: 0;
-            background: #2c5aa0;
-            border-bottom: 2px solid #1a3a52;
-            padding: 13px 16px;
-            font-weight: 600;
-            font-size: 11px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: #f9fafb;
+        }
+
+        th {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 700;
+            color: #34495e;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
-            color: #ffffff;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e0e0e0;
         }
 
-        .block-header-cell {
-            padding: 8px 10px;
-            border-right: 1px solid rgba(255, 255, 255, 0.15);
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
         }
 
-        .block-header-cell:last-child {
-            border-right: none;
-        }
-
-        /* Block Item (Like Table Row) */
-        .block-item {
-            display: grid;
-            grid-template-columns: 0.5fr 1.5fr 0.9fr 0.9fr 0.9fr 0.9fr 1.5fr;
-            gap: 0;
-            border-bottom: 1px solid #e8e8e8;
-            background: #ffffff;
-            transition: all 0.2s ease;
-        }
-
-        .block-item:hover {
-            background: #fafbfc;
-        }
-
-        .block-item:last-child {
+        tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* Row Colors by Status - ENTERPRISE */
-        .block-item.status-uploaded {
-            background: #f5fdf9;
-            border-left: 4px solid #27ae60;
+        tbody tr:hover {
+            background: #fdfdfd;
         }
 
-        .block-item.status-uploaded:hover {
-            background: #f0fbf6;
-        }
-
-        .block-item.status-extracted {
-            background: #f5f9fd;
-            border-left: 4px solid #3498db;
-        }
-
-        .block-item.status-extracted:hover {
-            background: #f0f6fb;
-        }
-
-        .block-item.status-pending {
-            background: #fffaf5;
-            border-left: 4px solid #f39c12;
-        }
-
-        .block-item.status-pending:hover {
-            background: #fffcf8;
-        }
-
-        .block-item.status-failed {
-            background: #fef5f5;
-            border-left: 4px solid #e74c3c;
-        }
-
-        .block-item.status-failed:hover {
-            background: #fef9f8;
-        }
-
-        .block-cell {
-            padding: 13px 16px;
-            border-right: 1px solid #f0f0f0;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            min-height: 50px;
-            word-break: break-word;
-            font-weight: 400;
-            color: #333;
-        }
-
-        .block-cell:first-child {
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .block-cell:last-child {
-            border-right: none;
-        }
-
-        /* Status Badges - ENTERPRISE */
+        /* Status Badges */
         .badge {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 12px;
+            padding: 5px 12px;
+            border-radius: 15px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             white-space: nowrap;
+            letter-spacing: 0.3px;
         }
 
         .badge-success {
-            background: #e8f5e9;
-            color: #1e5631;
+            background: #e6f7ec;
+            color: #27ae60;
         }
 
         .badge-warning {
-            background: #fff3e0;
-            color: #7d6608;
+            background: #fff9e6;
+            color: #f39c12;
         }
 
         .badge-danger {
-            background: #ffebee;
-            color: #7a1f1a;
+            background: #fbebee;
+            color: #e74c3c;
         }
 
         .badge-info {
-            background: #e3f2fd;
-            color: #0d3b66;
+            background: #eaf8fe;
+            color: #3498db;
         }
 
         .badge-secondary {
-            background: #f0f0f0;
-            color: #555;
+            background: #ecf0f1;
+            color: #7f8c8d;
         }
 
-        /* Action Buttons - ENTERPRISE */
+        /* Error Message */
+        .error-message {
+            background: #fbebee;
+            color: #c0392b;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-top: 8px;
+            border-left: 4px solid #e74c3c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-icon {
+            color: #e74c3c;
+            font-size: 14px;
+        }
+
+        /* Cropped Images Row */
+        .cropped-images-row td {
+            background: #fdfdfd;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .cropped-images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .cropped-image-box {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .cropped-image-box:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-color: #bdc3c7;
+        }
+
+        .cropped-image-label {
+            font-weight: 600;
+            color: #1a3a52;
+            font-size: 11px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .cropped-image-box img {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cropped-image-box img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 6px;
@@ -433,180 +403,105 @@
         }
 
         .action-btn {
-            padding: 5px 11px;
-            font-size: 10px;
-            border: 1px solid #d0d0d0;
-            background: #ffffff;
-            color: #333;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 10px;
+            font-size: 11px;
+            border: 1px solid #bdc3c7;
+            background: white;
+            color: #34495e;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
             white-space: nowrap;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
-        .action-btn:hover:not(:disabled) {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        .action-btn i {
+            font-size: 10px;
         }
 
-        .action-btn-extract {
+        .action-btn:hover {
             border-color: #2c5aa0;
             color: #2c5aa0;
-            background: #ffffff;
+            background: #f9f9f9;
         }
 
-        .action-btn-extract:hover:not(:disabled) {
-            background: #f5f9fd;
-            border-color: #1a3a52;
-            color: #1a3a52;
-        }
-
-        .action-btn-reextract {
-            border-color: #f39c12;
-            color: #f39c12;
-            background: #ffffff;
-        }
-
-        .action-btn-reextract:hover:not(:disabled) {
-            background: #fffaf5;
-            border-color: #d68910;
-            color: #d68910;
-        }
-
-        .action-btn-verify {
-            border-color: #3498db;
-            color: #3498db;
-            background: #ffffff;
-        }
-
-        .action-btn-verify:hover:not(:disabled) {
-            background: #f5f9fd;
-            border-color: #2980b9;
-            color: #2980b9;
-        }
-
-        .action-btn-upload {
-            border-color: #27ae60;
-            color: #27ae60;
-            background: #ffffff;
-        }
-
-        .action-btn-upload:hover:not(:disabled) {
-            background: #f5fdf9;
-            border-color: #1d7e44;
-            color: #1d7e44;
-        }
-
-        .action-btn-delete {
+        .action-btn-danger:hover {
             border-color: #e74c3c;
             color: #e74c3c;
-            background: #ffffff;
+            background: #fbebee;
         }
 
-        .action-btn-delete:hover:not(:disabled) {
-            background: #fef5f5;
-            border-color: #c0392b;
-            color: #c0392b;
+        .action-btn-success {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .action-btn-success:hover {
+            background: #e6f7ec;
+            color: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .action-btn-warning {
+            border-color: #f39c12;
+            color: #f39c12;
+        }
+
+        .action-btn-warning:hover {
+            background: #fff9e6;
+            color: #f39c12;
+            border-color: #f39c12;
         }
 
         .action-btn:disabled {
-            opacity: 0.5;
+            background: #ecf0f1;
+            color: #bdc3c7;
+            border-color: #ecf0f1;
             cursor: not-allowed;
         }
 
-        /* Cropped Images Section */
-        .cropped-images-section {
-            grid-column: 1 / -1;
-            background: #f9f9f9;
-            border-top: 1px solid #e0e0e0;
-            padding: 16px;
-            display: none;
+        /* Alert */
+        .alert {
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            border-left: 4px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .cropped-images-section.show {
-            display: block;
-        }
-
-        .cropped-images-label {
-            font-weight: 600;
-            font-size: 12px;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .cropped-images-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 12px;
-        }
-
-        .cropped-image-box {
-            background: #ffffff;
-            border: 1px solid #d0d0d0;
-            border-radius: 4px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .cropped-image-label {
-            font-weight: 600;
-            color: #1a1a1a;
-            font-size: 11px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .cropped-image-box img {
-            width: 100%;
-            max-height: 150px;
-            border-radius: 3px;
-            border: 1px solid #d0d0d0;
+        .alert-close {
             cursor: pointer;
-            object-fit: contain;
+            font-size: 16px;
+            font-weight: bold;
         }
 
-        .cropped-image-box img:hover {
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        .alert-success {
+            background: #e6f7ec;
+            border-left-color: #27ae60;
+            color: #165932;
         }
 
-        .no-image {
-            width: 100%;
-            height: 120px;
-            background: #f5f5f5;
-            border: 1px solid #d0d0d0;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            color: #888;
-            font-weight: 500;
+        .alert-danger {
+            background: #fbebee;
+            border-left-color: #e74c3c;
+            color: #721c24;
         }
 
-        .error-message {
-            background: #e74c3c;
-            color: #ffffff;
-            padding: 9px 12px;
-            border-radius: 3px;
-            font-size: 10px;
-            border-left: 3px solid #c0392b;
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
+        .alert-warning {
+            background: #fff9e6;
+            border-left-color: #f39c12;
+            color: #856404;
         }
 
-        .error-icon {
-            font-weight: 600;
-            font-size: 12px;
+        .alert-info {
+            background: #eaf8fe;
+            border-left-color: #3498db;
+            color: #0c5460;
         }
 
         /* Modal */
@@ -618,7 +513,8 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
         }
 
         .modal.show {
@@ -628,13 +524,14 @@
         }
 
         .modal-content {
-            background: #ffffff;
+            background: white;
             padding: 20px;
-            border-radius: 6px;
+            border-radius: 8px;
             max-width: 90%;
-            max-height: 85vh;
+            max-height: 90vh;
             overflow: auto;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .modal-close {
@@ -643,162 +540,224 @@
             right: 15px;
             font-size: 28px;
             cursor: pointer;
-            color: #999;
+            color: #95a5a6;
+            transition: all 0.3s ease;
         }
 
         .modal-close:hover {
-            color: #000;
+            color: #34495e;
+            transform: rotate(90deg);
         }
 
         .modal img {
             max-width: 100%;
             height: auto;
+            border-radius: 4px;
+        }
+        
+        /* Confirmation Modal */
+        .modal-confirm .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+        .modal-confirm h4 {
+            font-size: 18px;
+            color: #1a3a52;
+            margin-bottom: 10px;
+        }
+        .modal-confirm p {
+            font-size: 14px;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+        .confirm-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .confirm-buttons .btn {
+            min-width: 100px;
+        }
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+            border-color: #c0392b;
+            color: white;
+        }
+
+        /* Error Details Row */
+        .error-details-row td {
+            background: #fbf3f3;
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .error-details-content {
+            font-size: 12px;
+            color: #34495e;
+        }
+
+        .error-details-title {
+            font-weight: 700;
+            color: #c0392b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Serial Number Column */
+        th:first-child,
+        td:first-child {
+            width: 60px;
+            text-align: center;
+            font-weight: 600;
         }
 
         /* ===== FOOTER ===== */
         footer {
-            background: #ffffff;
-            color: #333;
-            padding: 16px 24px;
-            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.06);
-            font-size: 11px;
-            margin-top: auto;
-            border-top: 1px solid #e0e0e0;
+            background: #1a3a52;
+            color: white;
+            padding: 30px 0;
+            margin-top: 30px;
+            font-size: 12px;
         }
 
         .footer-container {
-            max-width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
         }
 
         .footer-section h4 {
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
         }
 
         .footer-section p {
-            font-size: 10px;
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 4px;
+            font-size: 12px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
         }
 
         .footer-section a {
-            color: #2c5aa0;
+            color: #87ceeb;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .footer-section a:hover {
+            color: white;
             text-decoration: underline;
         }
 
         .footer-logo {
-            height: 30px;
+            height: 40px;
             object-fit: contain;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            background: white;
+            padding: 5px;
+            border-radius: 4px;
         }
 
         .footer-bottom {
             text-align: center;
-            font-size: 9px;
-            color: #888;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             grid-column: 1 / -1;
-        }
-
-        /* Empty State */
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            color: #888;
-            padding: 40px 20px;
-            font-size: 13px;
         }
 
         /* Responsive */
-        @media (max-width: 1400px) {
-            .block-header,
-            .block-item {
-                grid-template-columns: 0.5fr 1.3fr 0.8fr 0.8fr 0.8fr 0.8fr 1.3fr;
-            }
-        }
-
-        @media (max-width: 1200px) {
+        @media (max-width: 900px) {
             .header-container {
+                flex-wrap: wrap;
                 gap: 15px;
-            }
-
-            .logo-section {
-                min-width: auto;
+                padding: 15px;
             }
 
             .quick-stats {
                 border-left: none;
-                border-top: 1px solid #e0e0e0;
                 padding-left: 0;
-                padding-top: 10px;
+                margin-left: 0;
                 width: 100%;
                 justify-content: space-around;
+                gap: 15px;
             }
 
-            .header-filters {
-                width: 100%;
-                justify-content: space-between;
+            .logo-img {
+                height: 40px;
+            }
+
+            .header-title {
+                font-size: 16px;
+            }
+
+            .cropped-images-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;
+            }
+            .container {
+                padding: 0 10px;
+                margin-top: 15px;
+            }
+            
+            .upload-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn, .file-label {
+                justify-content: center;
+            }
+            #selectedFiles {
+                text-align: center;
+                margin-top: 10px;
+            }
+            
+            .filter-tabs {
+                gap: 0;
+            }
+            .filter-btn {
+                flex: 1;
+                padding: 10px 5px;
+                font-size: 12px;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+            }
+            table {
+                font-size: 12px;
+                min-width: 600px;
+            }
+
+            th, td {
+                padding: 10px 8px;
             }
 
             .cropped-images-grid {
                 grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .block-header,
-            .block-item {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .block-header-cell,
-            .block-cell {
-                border-right: none;
-                padding: 8px 15px;
-            }
-
-            .block-cell::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: #1a1a1a;
-                display: block;
-                font-size: 10px;
-                margin-bottom: 4px;
-                text-transform: uppercase;
-            }
-
-            .block-item {
-                padding: 0;
-            }
-
-            .block-header {
-                display: none;
-            }
-
-            .header-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .logo-section {
-                width: 100%;
             }
         }
     </style>
@@ -808,10 +767,11 @@
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <img src="https://saveetha.ac.in/wp-content/uploads/2024/03/sec-logo-01as-2048x412.png" alt="Saveetha Logo" class="logo-img">
+                <img src="https://saveetha.ac.in/wp-content/uploads/2024/03/sec-logo-01as-2048x412.png" alt="Saveetha Logo" class="logo-img"
+                     onerror="this.style.display='none'">
                 <div class="header-text">
                     <div class="header-title">LMS Automation System</div>
-                    <div class="header-subtitle">Saveetha Engineering College | Automated PDF Upload & Processing</div>
+                    <div class="header-subtitle">Saveetha Engineering College</div>
                 </div>
             </div>
 
@@ -826,14 +786,8 @@
                 </div>
                 <div class="quick-stat">
                     <div class="quick-stat-value">{{ uploaded_count }}</div>
-                    <div class="quick-stat-label">Completed</div>
+                    <div class="quick-stat-label">Uploaded</div>
                 </div>
-            </div>
-
-            <div class="header-filters">
-                <button class="filter-header-btn {% if status_filter == 'all' %}active{% endif %}" onclick="filterDocuments('all')">All</button>
-                <button class="filter-header-btn {% if status_filter == 'pending' %}active{% endif %}" onclick="filterDocuments('pending')">Pending</button>
-                <button class="filter-header-btn {% if status_filter == 'uploaded' %}active{% endif %}" onclick="filterDocuments('uploaded')">Completed</button>
             </div>
         </div>
     </header>
@@ -845,9 +799,15 @@
             <h3>Upload Answer Sheet PDFs</h3>
             <div class="upload-controls">
                 <input type="file" id="pdfFiles" multiple accept=".pdf">
-                <label for="pdfFiles" class="file-label">Choose PDF Files</label>
-                <button class="btn btn-primary" id="uploadBtn" onclick="uploadFiles()" disabled>Upload Files</button>
-                <button class="btn btn-success" onclick="uploadAllExtracted()" id="bulkUploadBtn">Upload All Ready</button>
+                <label for="pdfFiles" class="file-label">
+                    <i class="fas fa-file-pdf"></i> Choose PDF Files
+                </label>
+                <button class="btn btn-primary" id="uploadBtn" onclick="uploadFiles()" disabled>
+                    <i class="fas fa-upload"></i> Upload Files
+                </button>
+                <button class="btn btn-success" onclick="onUploadAllExtracted()">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload All Ready
+                </button>
                 <div id="selectedFiles"></div>
             </div>
         </div>
@@ -855,114 +815,154 @@
         <!-- Alerts -->
         <div id="alertContainer"></div>
 
-        <!-- Block List (Like Table) -->
-        <div class="block-list">
-            <!-- Block Header -->
-            <div class="block-header">
-                <div class="block-header-cell">#</div>
-                <div class="block-header-cell">File Name</div>
-                <div class="block-header-cell">Reg. No</div>
-                <div class="block-header-cell">Subject</div>
-                <div class="block-header-cell">LMS User</div>
-                <div class="block-header-cell">Status</div>
-                <div class="block-header-cell">Actions</div>
-            </div>
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+             <button class="filter-btn" id="filter-all" onclick="filterDocuments('all')">All</button>
+             <button class="filter-btn" id="filter-pending" onclick="filterDocuments('pending')">Pending</button>
+             <button class="filter-btn" id="filter-uploaded" onclick="filterDocuments('uploaded')">Uploaded</button>
+        </div>
 
-            <!-- Block Items (Like Table Rows) -->
-            {% for upload in uploads %}
-                <!-- Data Block -->
-                <div class="block-item status-{{ upload.status }}">
-                    <div class="block-cell" data-label="#">{{ forloop.counter }}</div>
-                    <div class="block-cell" data-label="File Name">{{ upload.filename }}</div>
-                    <div class="block-cell" data-label="Reg. No">{{ upload.register_number }}</div>
-                    <div class="block-cell" data-label="Subject">{{ upload.subject_code }}</div>
-                    <div class="block-cell" data-label="LMS User">
-                        {% if upload.has_credentials %}
-                            <span class="badge badge-info">{{ upload.username }}</span>
-                        {% else %}
-                            <span class="badge badge-warning">N/A</span>
-                        {% endif %}
-                    </div>
-                    <div class="block-cell" data-label="Status">
-                        {% if upload.status == 'uploaded' %}
-                            <span class="badge badge-success">UPLOADED</span>
-                        {% elif upload.status == 'pending' %}
-                            <span class="badge badge-warning">PENDING</span>
-                        {% elif upload.status == 'failed' %}
-                            <span class="badge badge-danger">FAILED</span>
-                        {% elif upload.status == 'extracted' %}
-                            <span class="badge badge-info">EXTRACTED</span>
-                        {% else %}
-                            <span class="badge badge-secondary">{{ upload.status|upper }}</span>
-                        {% endif %}
-                    </div>
-                    <div class="block-cell" data-label="Actions">
-                        <div class="action-buttons">
-                            {% if upload.status == 'pending' or upload.status == 'failed' %}
-                              <button class="action-btn action-btn-extract" id="extract-{{ upload.id }}" onclick="processPDF({{ upload.id }})">Extract</button>
+        <!-- Table -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>File Name</th>
+                        <th>Reg. No</th>
+                        <th>Subject</th>
+                        <th>LMS User</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for upload in uploads %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ upload.filename }}</td>
+                        <td>{{ upload.register_number | default:'-' }}</td>
+                        <td>{{ upload.subject_code | default:'-' }}</td>
+                        <td>
+                            {% if upload.has_credentials %}
+                                <span class="badge badge-info">{{ upload.username }}</span>
+                            {% else %}
+                                <span class="badge badge-secondary">N/A</span>
                             {% endif %}
-                            {% if upload.status == 'extracted' %}
-                              <button class="action-btn action-btn-reextract" id="reextract-{{ upload.id }}" onclick="reExtractPDF({{ upload.id }})">Re-Extract</button>
-                              <button class="action-btn action-btn-verify" id="verify-{{ upload.id }}" onclick="recheckConfiguration({{ upload.id }})">Verify</button>
+                        </td>
+                        <td>
+                            {% if upload.status == 'uploaded' %}
+                                <span class="badge badge-success">UPLOADED</span>
+                            {% elif upload.status == 'pending' %}
+                                <span class="badge badge-warning">PENDING</span>
+                            {% elif upload.status == 'failed' %}
+                                <span class="badge badge-danger">FAILED</span>
+                            {% elif upload.status == 'extracted' %}
+                                <span class="badge badge-info">READY</span>
+                            {% else %}
+                                <span class="badge badge-secondary">{{ upload.status|upper }}</span>
                             {% endif %}
-                            {% if upload.status == 'extracted' and not upload.is_uploaded %}
-                              <button class="action-btn action-btn-upload" id="upload-{{ upload.id }}" onclick="uploadToLMS({{ upload.id }})" {% if not upload.has_credentials or not upload.has_subject_url %}disabled{% endif %}>Upload</button>
-                            {% endif %}
-                            <button class="action-btn action-btn-delete" onclick="deletePDF({{ upload.id }})">Delete</button>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                {% if upload.status == 'pending' or upload.status == 'failed' %}
+                                  <button class="action-btn" id="extract-btn-{{ upload.id }}" onclick="processPDF({{ upload.id }})">
+                                    <i class="fas fa-cogs"></i> Extract
+                                  </button>
+                                {% endif %}
+                                {% if upload.status == 'extracted' %}
+                                  <button class="action-btn" id="reextract-btn-{{ upload.id }}" onclick="onReExtractPDF({{ upload.id }})">
+                                    <i class="fas fa-redo"></i> Re-extract
+                                  </button>
+                                  <button class="action-btn" onclick="recheckConfiguration({{ upload.id }})">
+                                    <i class="fas fa-check-double"></i> Recheck
+                                  </button>
+                                  <button class="action-btn" onclick="toggleImages({{ upload.id }}, this)">
+                                    <i class="fas fa-images"></i> View Images
+                                  </button>
+                                {% endif %}
+                                {% if upload.status == 'extracted' and not upload.is_uploaded %}
+                                  <button class="action-btn action-btn-success" id="upload-btn-{{ upload.id }}" onclick="onUploadToLMS({{ upload.id }})" 
+                                          {% if not upload.has_credentials or not upload.has_subject_url %}disabled{% endif %}>
+                                    <i class="fas fa-check"></i> Upload
+                                  </button>
+                                {% endif %}
+                                {% if not upload.has_credentials %}
+                                  <button class="action-btn action-btn-warning" onclick="toggleErrorDetails({{ upload.id }}, this)">
+                                    <i class="fas fa-exclamation-circle"></i> View Error
+                                  </button>
+                                {% endif %}
+                                <button class="action-btn action-btn-danger" onclick="onDeletePDF({{ upload.id }})">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
 
-                <!-- Cropped Images Section -->
-                <div class="cropped-images-section" id="images-{{ upload.id }}">
-                    <div class="cropped-images-label">Extracted Data</div>
-                    
-                    <div class="cropped-images-grid">
-                        {% if upload.register_image %}
-                        <div class="cropped-image-box">
-                            <div class="cropped-image-label">Register Number</div>
-                            <img src="{{ upload.register_image.url }}" alt="Register" onclick="viewFullImage('{{ upload.register_image.url }}', 'Register Number')">
-                        </div>
-                        {% else %}
-                        <div class="cropped-image-box">
-                            <div class="cropped-image-label">Register Number</div>
-                            <div class="no-image">No Image</div>
-                        </div>
-                        {% endif %}
-
-                        {% if upload.subject_image %}
-                        <div class="cropped-image-box">
-                            <div class="cropped-image-label">Subject Code</div>
-                            <img src="{{ upload.subject_image.url }}" alt="Subject" onclick="viewFullImage('{{ upload.subject_image.url }}', 'Subject Code')">
-                        </div>
-                        {% else %}
-                        <div class="cropped-image-box">
-                            <div class="cropped-image-label">Subject Code</div>
-                            <div class="no-image">No Image</div>
-                        </div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Error Messages -->
+                    <!-- Error Details Row - Hidden by default -->
                     {% if not upload.has_credentials or not upload.has_subject_url %}
-                    <div>
-                        {% if not upload.has_credentials %}
-                        <div class="error-message">
-                            <span class="error-icon">!</span> No LMS credentials for register {{ upload.register_number }}
-                        </div>
-                        {% endif %}
-                        {% if not upload.has_subject_url %}
-                        <div class="error-message">
-                            <span class="error-icon">!</span> No subject URL configured for {{ upload.subject_code }}
-                        </div>
-                        {% endif %}
-                    </div>
+                    <tr class="error-details-row" id="error-{{ upload.id }}" style="display: none;">
+                        <td colspan="7">
+                            <div class="error-details-content">
+                                <div class="error-details-title">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Configuration Errors
+                                </div>
+                                {% if not upload.has_credentials %}
+                                <div class="error-message">
+                                    <i class="fas fa-user-times error-icon"></i>
+                                    <span>No LMS credentials found for register number <strong>{{ upload.register_number }}</strong>. Please add credentials in the configuration.</span>
+                                </div>
+                                {% endif %}
+                                {% if not upload.has_subject_url %}
+                                <div class="error-message">
+                                    <i class="fas fa-link error-icon"></i>
+                                    <span>No subject URL configured for subject code <strong>{{ upload.subject_code }}</strong>. Please add the subject URL in the configuration.</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
                     {% endif %}
-                </div>
 
-            {% empty %}
-                <div class="empty-state">No documents available. Upload your first PDF.</div>
-            {% endfor %}
+                    <!-- Cropped Images Row - Hidden by default -->
+                    {% if upload.status == 'extracted' %}
+                    <tr class="cropped-images-row" id="images-{{ upload.id }}" style="display: none;">
+                        <td colspan="7">
+                            <div>
+                                <strong style="font-size: 12px; color: #1a3a52;">Extracted Data:</strong>
+                                <div class="cropped-images-grid">
+                                    {% if upload.register_image %}
+                                    <div class="cropped-image-box">
+                                        <div class="cropped-image-label">Register Number</div>
+                                        <img src="{{ upload.register_image.url }}" alt="Register" onclick="viewFullImage('{{ upload.register_image.url }}', 'Register Number')">
+                                    </div>
+                                    {% endif %}
+                                    {% if upload.subject_image %}
+                                    <div class="cropped-image-box">
+                                        <div class="cropped-image-label">Subject Code</div>
+                                        <img src="{{ upload.subject_image.url }}" alt="Subject" onclick="viewFullImage('{{ upload.subject_image.url }}', 'Subject Code')">
+                                    </div>
+                                    {% endif %}
+                                    {% if not upload.register_image and not upload.subject_image %}
+                                    <p style="font-size: 12px; color: #7f8c8d;">No images were extracted.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                {% endfor %}
+                {% if uploads|length == 0 %}
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: #95a5a6; padding: 25px; font-size: 14px;">
+                            No documents found for this filter.
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
         </div>
     </main>
 
@@ -973,72 +973,143 @@
             <img id="modalImage" src="" alt="Full Image">
         </div>
     </div>
+    
+    <!-- ===== CONFIRMATION MODAL ===== -->
+    <div id="confirmModal" class="modal modal-confirm">
+        <div class="modal-content">
+            <h4>Confirm Action</h4>
+            <p id="confirmMessage"></p>
+            <div class="confirm-buttons">
+                <button class="btn" onclick="closeConfirm()">Cancel</button>
+                <button class="btn btn-danger" id="confirmBtn" onclick="executeConfirm()">Confirm</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== FOOTER ===== -->
     <footer>
         <div class="footer-container">
             <div class="footer-section">
                 <h4>Institution</h4>
-                <img src="https://saveetha.ac.in/wp-content/uploads/2024/03/sec-logo-01as-2048x412.png" alt="SEC" class="footer-logo">
+                <img src="https://saveetha.ac.in/wp-content/uploads/2024/03/sec-logo-01as-2048x412.png" alt="SEC" class="footer-logo" 
+                     onerror="this.style.display='none'">
                 <p>Saveetha Engineering College</p>
-                <p>Autonomous | TNEA: 1216</p>
+                <p>Autonomous | TNEA Code: 1216</p>
+                <p>Affiliated to Anna University</p>
             </div>
             <div class="footer-section">
                 <h4>Contact</h4>
-                <p>Saveetha Nagar, Chennai</p>
-                <p>+91-44-6746 2222</p>
-                <p><a href="mailto:info@saveetha.ac.in">info@saveetha.ac.in</a></p>
+                <p><strong>Address:</strong> Saveetha Nagar, Chennai</p>
+                <p><strong>Phone:</strong> +91-44-6746 2222</p>
+                <p><strong>Email:</strong> info@saveetha.ac.in</p>
             </div>
             <div class="footer-section">
                 <h4>Links</h4>
-                <p><a href="https://saveetha.ac.in" target="_blank">Main Website</a></p>
-                <p><a href="https://lms2.ai.saveetha.in" target="_blank">LMS Portal</a></p>
-                <p><a href="https://saveetha.ac.in/placements" target="_blank">Placements</a></p>
+                <p><a href="https://saveetha.ac.in" target="_blank" rel="noopener">Main Website</a></p>
+                <p><a href="https://lms2.ai.saveetha.in" target="_blank" rel="noopener">LMS Portal</a></p>
+                <p><a href="https://saveetha.ac.in/placements" target="_blank" rel="noopener">Placements</a></p>
             </div>
             <div class="footer-section">
                 <h4>System</h4>
-                <p>LMS Automation v1.0</p>
-                <p>Updated: Nov 2025</p>
-                <p>PDF Processing</p>
+                <p><strong>Name:</strong> LMS Automation</p>
+                <p><strong>Version:</strong> 1.2 (Enhanced)</p>
+                <p><strong>Date:</strong> {{ current_date }}</p>
             </div>
             <div class="footer-bottom">
-                &copy; 2025 Saveetha Engineering College. All Rights Reserved.
+                &copy; {% now "Y" %} Saveetha Engineering College. All Rights Reserved.
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        document.getElementById('pdfFiles').addEventListener('change', function(e) {
-            const files = Array.from(e.target.files);
-            const fileList = document.getElementById('selectedFiles');
-            const uploadBtn = document.getElementById('uploadBtn');
+        // --- Globals for Modals ---
+        let confirmCallback = null;
+        let currentProcessingId = null;
 
-            if (files.length > 0) {
-                fileList.innerHTML = `<small>Selected: ${files.length} file(s)</small>`;
-                uploadBtn.disabled = false;
+        // --- On Document Load ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set active filter tab
+            const params = new URLSearchParams(window.location.search);
+            const status = params.get('status') || 'all';
+            const activeTab = document.getElementById(`filter-${status}`);
+            if (activeTab) {
+                activeTab.classList.add('active');
             } else {
-                fileList.innerHTML = '';
-                uploadBtn.disabled = true;
+                document.getElementById('filter-all').classList.add('active');
             }
-        });
+            
+            // File input listener
+            document.getElementById('pdfFiles').addEventListener('change', function(e) {
+                const files = Array.from(e.target.files);
+                const fileList = document.getElementById('selectedFiles');
+                const uploadBtn = document.getElementById('uploadBtn');
 
+                if (files.length > 0) {
+                    fileList.innerHTML = `<small>${files.length} file(s) selected</small>`;
+                    uploadBtn.disabled = false;
+                } else {
+                    fileList.innerHTML = '';
+                    uploadBtn.disabled = true;
+                }
+            });
+        });
+        
+        // --- Toggle Images ---
+        function toggleImages(pdfId, btn) {
+            const row = document.getElementById(`images-${pdfId}`);
+            if (!row) return;
+
+            if (row.style.display === 'none') {
+                row.style.display = 'table-row';
+                if(btn) btn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Images';
+            } else {
+                row.style.display = 'none';
+                if(btn) btn.innerHTML = '<i class="fas fa-images"></i> View Images';
+            }
+        }
+
+        // --- Toggle Error Details ---
+        function toggleErrorDetails(pdfId, btn) {
+            const row = document.getElementById(`error-${pdfId}`);
+            if (!row) return;
+
+            if (row.style.display === 'none') {
+                row.style.display = 'table-row';
+                if(btn) btn.innerHTML = '<i class="fas fa-times-circle"></i> Hide Error';
+            } else {
+                row.style.display = 'none';
+                if(btn) btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> View Error';
+            }
+        }
+
+        // --- Navigation ---
         function filterDocuments(status) {
             window.location.href = `/?status=${status}`;
         }
 
-        function showAlert(message, type) {
+        // --- Custom Alert System ---
+        function showAlert(message, type = 'info') {
             const alertContainer = document.getElementById('alertContainer');
             const alertDiv = document.createElement('div');
+            let iconClass = 'fa-info-circle';
+            if (type === 'success') iconClass = 'fa-check-circle';
+            if (type === 'danger') iconClass = 'fa-exclamation-triangle';
+            if (type === 'warning') iconClass = 'fa-exclamation-circle';
+            
             alertDiv.className = `alert alert-${type}`;
-            alertDiv.innerHTML = `${message} <span style="float:right;cursor:pointer;" onclick="this.parentElement.remove();">×</span>`;
-            alertContainer.appendChild(alertDiv);
+            alertDiv.innerHTML = `
+                <span><i class="fas ${iconClass}"></i> ${message}</span>
+                <span class="alert-close" onclick="this.parentElement.remove();">&times;</span>
+            `;
+            alertContainer.prepend(alertDiv);
             
             setTimeout(() => {
                 if (alertDiv.parentElement) alertDiv.remove();
-            }, 4000);
+            }, 5000);
         }
 
+        // --- Custom Modal Functions ---
         function viewFullImage(imageUrl, title) {
             const modal = document.getElementById('imageModal');
             document.getElementById('modalImage').src = imageUrl;
@@ -1048,13 +1119,61 @@
         function closeImageModal() {
             document.getElementById('imageModal').classList.remove('show');
         }
+        
+        function showConfirm(message, callback, confirmButtonClass = 'btn-danger') {
+            document.getElementById('confirmMessage').textContent = message;
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmCallback = callback;
+            
+            confirmBtn.className = `btn ${confirmButtonClass}`;
+            if (confirmButtonClass === 'btn-success') {
+                confirmBtn.textContent = 'Upload';
+            } else {
+                confirmBtn.textContent = 'Confirm';
+            }
+            
+            document.getElementById('confirmModal').classList.add('show');
+        }
 
+        function closeConfirm() {
+            document.getElementById('confirmModal').classList.remove('show');
+            confirmCallback = null;
+        }
+
+        function executeConfirm() {
+            if (typeof confirmCallback === 'function') {
+                confirmCallback();
+            }
+            closeConfirm();
+        }
+
+        // Close modals on outside click
         window.onclick = function(event) {
-            const modal = document.getElementById('imageModal');
-            if (event.target === modal) {
-                modal.classList.remove('show');
+            const imageModal = document.getElementById('imageModal');
+            const confirmModal = document.getElementById('confirmModal');
+            if (event.target === imageModal) {
+                closeImageModal();
+            }
+            if (event.target === confirmModal) {
+                closeConfirm();
             }
         }
+
+        // --- Helper: Update Button State ---
+        function updateButtonState(btnId, isProcessing, processingText, normalText) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+            
+            if (isProcessing) {
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${processingText}`;
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = normalText;
+            }
+        }
+
+        // --- API Call Functions ---
 
         async function uploadFiles() {
             const fileInput = document.getElementById('pdfFiles');
@@ -1062,7 +1181,7 @@
             const uploadBtn = document.getElementById('uploadBtn');
 
             if (files.length === 0) {
-                showAlert('Please select files to upload', 'danger');
+                showAlert('Please select files to upload', 'warning');
                 return;
             }
 
@@ -1070,157 +1189,133 @@
             Array.from(files).forEach(file => formData.append('pdf_files', file));
 
             uploadBtn.disabled = true;
-            uploadBtn.innerHTML = 'Uploading...';
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
             try {
                 const response = await fetch('/api/upload/', {
                     method: 'POST',
                     body: formData
                 });
-
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('✓ Files uploaded successfully', 'success');
-                    setTimeout(() => window.location.reload(), 800);
+                    showAlert('Uploaded successfully! Refreshing...', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
+                    showAlert(result.error, 'danger');
                     uploadBtn.disabled = false;
-                    uploadBtn.innerHTML = 'Upload Files';
+                    uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
+                showAlert('Error: ' + error.message, 'danger');
                 uploadBtn.disabled = false;
-                uploadBtn.innerHTML = 'Upload Files';
+                uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
             }
         }
 
         async function processPDF(pdfId) {
-            const btn = document.getElementById(`extract-${pdfId}`);
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Extracting...';
-            btn.disabled = true;
-
-            showAlert('Extracting data...', 'info');
-
+            const btnId = `extract-btn-${pdfId}`;
+            updateButtonState(btnId, true, 'Extracting...', '<i class="fas fa-cogs"></i> Extract');
+            showAlert('Extracting data... This may take a moment.', 'info');
+            
             try {
                 const response = await fetch(`/api/process/${pdfId}/`, { method: 'POST' });
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('✓ Data extracted', 'success');
-                    setTimeout(() => {
-                        const section = document.getElementById(`images-${pdfId}`);
-                        if (section) section.classList.add('show');
-                        window.location.reload();
-                    }, 800);
+                    showAlert('Extraction complete! Refreshing...', 'success');
+                    setTimeout(() => window.location.reload(), 800);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                    showAlert(result.error, 'danger');
+                    updateButtonState(btnId, false, '', '<i class="fas fa-cogs"></i> Extract');
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                showAlert('Error: ' + error.message, 'danger');
+                updateButtonState(btnId, false, '', '<i class="fas fa-cogs"></i> Extract');
             }
         }
 
+        function onReExtractPDF(pdfId) {
+            showConfirm('Are you sure you want to re-extract data? This will overwrite existing images.', () => {
+                reExtractPDF(pdfId);
+            });
+        }
+
         async function reExtractPDF(pdfId) {
-            if (!confirm('Re-extract data?')) return;
+            const btnId = `reextract-btn-${pdfId}`;
+            updateButtonState(btnId, true, 'Extracting...', '<i class="fas fa-redo"></i> Re-extract');
+            showAlert('Re-extracting data...', 'info');
             
-            const btn = document.getElementById(`reextract-${pdfId}`);
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Extracting...';
-            btn.disabled = true;
-
-            showAlert('Extracting data...', 'info');
-
             try {
                 const response = await fetch(`/api/process/${pdfId}/`, { method: 'POST' });
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('✓ Data extracted', 'success');
+                    showAlert('Re-extraction complete! Refreshing...', 'success');
                     setTimeout(() => window.location.reload(), 800);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                    showAlert(result.error, 'danger');
+                    updateButtonState(btnId, false, '', '<i class="fas fa-redo"></i> Re-extract');
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                showAlert('Error: ' + error.message, 'danger');
+                updateButtonState(btnId, false, '', '<i class="fas fa-redo"></i> Re-extract');
             }
         }
 
         async function recheckConfiguration(pdfId) {
-            const btn = document.getElementById(`verify-${pdfId}`);
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Checking...';
-            btn.disabled = true;
-
-            showAlert('Checking configuration...', 'info');
-
+            showAlert('Rechecking configuration...', 'info');
             try {
                 const response = await fetch(`/api/recheck/${pdfId}/`, { method: 'POST' });
                 const result = await response.json();
                 
                 if (result.success) {
-                    showAlert(result.message, result.messageType || 'info');
+                    showAlert(result.message || 'Recheck complete! Refreshing...', result.messageType || 'success');
                     setTimeout(() => window.location.reload(), 1500);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                    showAlert(result.error, 'danger');
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                showAlert('Error: ' + error.message, 'danger');
             }
         }
 
+        function onUploadToLMS(pdfId) {
+            showConfirm('Are you sure you want to upload this file to LMS?', () => {
+                uploadToLMS(pdfId);
+            }, 'btn-success');
+        }
+
         async function uploadToLMS(pdfId) {
-            if (!confirm('Upload to LMS?')) return;
-
-            const btn = document.getElementById(`upload-${pdfId}`);
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Uploading...';
-            btn.disabled = true;
-
-            showAlert('Uploading to LMS...', 'info');
-
+            const btnId = `upload-btn-${pdfId}`;
+            updateButtonState(btnId, true, 'Uploading...', '<i class="fas fa-check"></i> Upload');
+            showAlert('Uploading to LMS... Please wait.', 'info');
+            
             try {
                 const response = await fetch(`/api/upload-lms/${pdfId}/`, { method: 'POST' });
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('✓ Uploaded to LMS', 'success');
+                    showAlert('Uploaded to LMS! Refreshing...', 'success');
                     setTimeout(() => window.location.reload(), 1000);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                    showAlert(result.error, 'danger');
+                    updateButtonState(btnId, false, '', '<i class="fas fa-check"></i> Upload');
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                showAlert('Error: ' + error.message, 'danger');
+                updateButtonState(btnId, false, '', '<i class="fas fa-check"></i> Upload');
             }
         }
 
+        function onUploadAllExtracted() {
+            showConfirm('Are you sure you want to upload all "Ready" documents to LMS?', () => {
+                uploadAllExtracted();
+            }, 'btn-success');
+        }
+        
         async function uploadAllExtracted() {
-            if (!confirm('Upload all ready documents?')) return;
-
-            const btn = document.getElementById('bulkUploadBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Uploading...';
-            btn.disabled = true;
-
-            showAlert('Uploading documents...', 'info');
-
+            showAlert('Starting bulk upload... This may take time.', 'info');
             try {
                 const response = await fetch('/api/upload-multiple-lms/', {
                     method: 'POST',
@@ -1231,45 +1326,37 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    showAlert('✓ ' + result.message, 'success');
-                    setTimeout(() => window.location.reload(), 1000);
+                    showAlert(result.message || 'Bulk upload complete! Refreshing...', 'success');
+                    setTimeout(() => window.location.reload(), 1500);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                    showAlert(result.error, 'danger');
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
+                showAlert('Error: ' + error.message, 'danger');
             }
         }
 
-        async function deletePDF(pdfId) {
-            if (!confirm('Delete?')) return;
+        function onDeletePDF(pdfId) {
+            showConfirm('Are you sure you want to permanently delete this file?', () => {
+                deletePDF(pdfId);
+            });
+        }
 
+        async function deletePDF(pdfId) {
             try {
                 const response = await fetch(`/api/delete/${pdfId}/`, { method: 'POST' });
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('✓ Deleted', 'success');
+                    showAlert('File deleted. Refreshing...', 'success');
                     setTimeout(() => window.location.reload(), 500);
                 } else {
-                    showAlert('✗ ' + result.error, 'danger');
+                    showAlert(result.error, 'danger');
                 }
             } catch (error) {
-                showAlert('✗ Error: ' + error.message, 'danger');
+                showAlert('Error: ' + error.message, 'danger');
             }
         }
-
-        // Show all extracted images on load
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.cropped-images-section').forEach(section => {
-                section.classList.add('show');
-            });
-        });
     </script>
 </body>
 </html>
-
