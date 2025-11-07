@@ -31,62 +31,36 @@ DATABASE_NAME = "lms_automation"
 COLLECTION_CREDENTIALS = "student_credentials"
 COLLECTION_URLS = "subject_urls"
 COLLECTION_UPLOADS = "pdf_uploads"
-# Smart Answer Sheet Processor - MongoDB Setup
-
-This guide walks you through setting up the **MongoDB** database for the **Smart Answer Sheet Processor** Django application using the provided `setup_mongodb.py` script.
-
----
-
-## `setup_mongodb.py`
-
-> **Save this file in your project root directory** (same location as `manage.py`)
-
-```python
-""" MongoDB Database Setup Script for Smart Answer Sheet Processor
-===============================================================
-This script sets up MongoDB database with:
-1. Three collections: student_credentials, subject_urls, pdf_uploads
-2. Indexes for faster queries
-3. Sample data for testing
-
-Author: Smart Answer Sheet Processor Team
-Date: November 2025
-"""
-import sys
-from pymongo import MongoClient, ASCENDING
-from pymongo.errors import ConnectionFailure, CollectionInvalid, DuplicateKeyError
-from datetime import datetime
-
-# ==================== CONFIGURATION ====================
-MONGODB_URI = "mongodb://localhost:27017/"
-DATABASE_NAME = "lms_automation"
-
-COLLECTION_CREDENTIALS = "student_credentials"
-COLLECTION_URLS = "subject_urls"
-COLLECTION_UPLOADS = "pdf_uploads"
 
 # ==================== HELPER FUNCTIONS ====================
+
 def print_header():
     print("\n" + "=" * 70)
     print(" SMART ANSWER SHEET PROCESSOR - MONGODB SETUP")
     print("=" * 70 + "\n")
 
+
 def print_success(message):
     print(f"✓ {message}")
+
 
 def print_error(message):
     print(f"✗ ERROR: {message}", file=sys.stderr)
 
+
 def print_warning(message):
     print(f"⚠ WARNING: {message}")
 
+
 def print_section(section_num, total, title):
     print(f"\n[{section_num}/{total}] {title}")
+
 
 def print_info(message):
     print(f"ℹ {message}")
 
 # ==================== DATABASE OPERATIONS ====================
+
 def connect_mongodb():
     try:
         print_info(f"Connecting to: {MONGODB_URI}")
@@ -105,6 +79,7 @@ def connect_mongodb():
         print(" → Run: mongosh")
         sys.exit(1)
 
+
 def create_collections(db):
     collections = [COLLECTION_CREDENTIALS, COLLECTION_URLS, COLLECTION_UPLOADS]
     created_count = existing_count = 0
@@ -117,6 +92,7 @@ def create_collections(db):
             print_warning(f"Collection already exists: {name}")
             existing_count += 1
     return created_count, existing_count
+
 
 def create_indexes(db):
     try:
@@ -135,6 +111,7 @@ def create_indexes(db):
         print_success("Created additional indexes for faster queries")
     except Exception as e:
         print_warning(f"Some indexes might already exist: {e}")
+
 
 def insert_sample_credentials(db):
     sample_credentials = [
@@ -161,6 +138,7 @@ def insert_sample_credentials(db):
         print_error(f"Failed to insert credentials: {e}")
         return 0
 
+
 def insert_sample_subject_urls(db):
     sample_urls = [
         {"subject_code": "19AI505", "lms_url": "https://lms2.ai.saveetha.in/mod/assign/view.php?id=1041", "subject_name": "Deep Learning", "created_at": datetime.now()},
@@ -186,6 +164,7 @@ def insert_sample_subject_urls(db):
         print_error(f"Failed to insert subject URLs: {e}")
         return 0
 
+
 def verify_setup(db):
     print_info("Verifying database setup...")
     all_good = True
@@ -209,6 +188,7 @@ def verify_setup(db):
     print_success(f"Indexes on subject_urls: {len(url_idx)}")
     return all_good
 
+
 def display_sample_data(db):
     print("\n" + "=" * 70)
     print(" SAMPLE DATA PREVIEW")
@@ -227,6 +207,7 @@ def display_sample_data(db):
         print(f" Subject Code: {url.get('subject_code')}")
         print(f" Subject Name: {url.get('subject_name')}")
         print(f" LMS URL: {url.get('lms_url')[:60]}...")
+
 
 def print_footer(db):
     cred_count = db[COLLECTION_CREDENTIALS].count_documents({})
@@ -249,7 +230,8 @@ def print_footer(db):
     print(f" → db.{COLLECTION_URLS}.find().pretty()\n")
     print("🌐 Access Application:\n → http://127.0.0.1:8000/")
 
-# ==================== MAIN FUNCTION ====================
+
+
 def main():
     print_header()
     try:
@@ -286,6 +268,7 @@ def main():
         print(f"\n✗ Setup failed: {e}")
         import traceback; traceback.print_exc()
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(main())
@@ -344,10 +327,113 @@ db.subject_urls.find().pretty()
 ---
 
 If you'd like, I can also add a small command in `requirements.txt` or a tiny README snippet showing how to install `pymongo` (`pip install -r requirements.txt`) — tell me if you want that.
-db.student_credentials.find().pretty()
-db.subject_urls.find().pretty()
-```
 
----
 
-If you'd like, I can also add a small command in `requirements.txt` or a tiny README snippet showing how to install `pymongo` (`pip install -r requirements.txt`) — tell me if you want that.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
