@@ -1,0 +1,33 @@
+# Django Framework
+Django
+pillow
+django-cors-headers
+
+# Machine Learning & Computer Vision
+torch
+torchvision
+opencv-python
+numpy
+ultralytics
+
+# PDF Processing
+pdf2image
+PyPDF2
+
+# Image Processing
+Pillow
+
+# Web Automation
+selenium
+webdriver-manager
+
+# OCR & Text Recognition
+pytesseract
+
+# System Dependencies (Linux)
+# poppler-utils (install via apt/yum)
+# tesseract-ocr (install via apt/yum)
+
+# Additional Utilities
+python-magic
+requests
