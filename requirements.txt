@@ -31,3 +31,4 @@ pytesseract
 # Additional Utilities
 python-magic
 requests
+pymongo
