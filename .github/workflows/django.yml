@@ -52,15 +52,15 @@ jobs:
     
     - name: Run migrations
       run: |
-        python manage.py migrate
+        python lms_automation_project/manage.py migrate
     
     - name: Collect static files
       run: |
-        python manage.py collectstatic --noinput
+        python lms_automation_project/manage.py collectstatic --noinput
     
     - name: Run tests
       run: |
-        python manage.py test --verbosity=2
+        python lms_automation_project/manage.py test --verbosity=2
     
     - name: Check code quality with flake8
       run: |
@@ -70,7 +70,7 @@ jobs:
     - name: Upload coverage
       run: |
         pip install coverage
-        coverage run --source='.' manage.py test
+        coverage run --source='.' lms_automation_project/manage.py test
         coverage report
 
   lint:
