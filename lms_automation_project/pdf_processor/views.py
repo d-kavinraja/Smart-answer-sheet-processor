@@ -582,9 +582,6 @@ def recheck_configuration(request, pdf_id):
             })
         
         db = get_mongodb_connection()
-        credentials_found = False
-        subject_url_found = False
-        username = None
         
         if db is None:
             return JsonResponse({
@@ -592,27 +589,45 @@ def recheck_configuration(request, pdf_id):
                 'error': 'Database connection failed'
             })
         
+        credentials_found = False
+        subject_url_found = False
+        username = None
+        
         try:
-            # Check credentials
+            # Check credentials in MongoDB
             credentials_collection = db['credentials']
             credentials = credentials_collection.find_one({'registerNumber': pdf_upload.register_number})
             
             if credentials:
                 username = credentials.get('username')
                 password = credentials.get('password')
+                
                 if username and password:
                     pdf_upload.username = username
                     pdf_upload.password = password
                     credentials_found = True
-                    pdf_upload.save()
+                else:
+                    # Clear credentials if incomplete
+                    pdf_upload.username = None
+                    pdf_upload.password = None
+                    credentials_found = False
+            else:
+                # Clear credentials if not found in MongoDB
+                pdf_upload.username = None
+                pdf_upload.password = None
+                credentials_found = False
+            
+            # Always save to update the database
+            pdf_upload.save()
             
             # Check subject URL
             subject_code_urls_collection = db['subject_code_urls']
-            url_doc = subject_code_urls_collection.find_one({'subject_code': pdf_upload.subject_code})
+            url_doc = subject_code_urls_collection.find_one({'subjectcode': pdf_upload.subject_code})
             subject_url_found = bool(url_doc and url_doc.get('url'))
             
         except Exception as e:
             print(f"Error during recheck: {e}")
+            traceback.print_exc()
             return JsonResponse({
                 'success': False,
                 'error': 'Error checking configuration'
@@ -642,7 +657,7 @@ def recheck_configuration(request, pdf_id):
             'data': {
                 'hasCredentials': credentials_found,
                 'subjectUrlConfigured': subject_url_found,
-                'username': username,
+                'username': username if credentials_found else None,
                 'registerNumber': pdf_upload.register_number,
                 'subjectCode': pdf_upload.subject_code,
                 'missingRequirements': pdf_upload.get_missing_requirements()
@@ -650,6 +665,8 @@ def recheck_configuration(request, pdf_id):
         })
         
     except Exception as e:
+        print(f"Recheck error: {e}")
+        traceback.print_exc()
         return JsonResponse({
             'success': False,
             'error': 'Recheck failed. Please try again.'
