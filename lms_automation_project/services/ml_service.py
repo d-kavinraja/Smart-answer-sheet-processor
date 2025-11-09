@@ -112,7 +112,7 @@ class AnswerSheetExtractor:
         self.primary_yolo_path = yolo_primary_path or os.path.join(project_root, "models", "improved_weights.pt")
         self.fallback_yolo_path = yolo_fallback_path or os.path.join(project_root, "models", "weights.pt")
         self.register_crnn_path = crnn_register_path or os.path.join(project_root, "models", "best_crnn_model(git).pth")
-        self.subject_crnn_path = crnn_subject_path or os.path.join(project_root, "models", "best_subject_model_final.pth")
+        self.subject_crnn_path = crnn_subject_path or os.path.join(project_root, "models", "best_subject_code_model_fulldataset.pth")
         
         try:
             self.load_models()
