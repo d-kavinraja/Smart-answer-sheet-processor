@@ -856,6 +856,360 @@
             font-weight: 600;
         }
 
+        /* ===== UPLOAD QUEUE PANEL ===== */
+        .upload-queue-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            width: 380px;
+            z-index: 2000;
+            border: 2px solid var(--primary);
+            display: none;
+        }
+
+        .upload-queue-panel.active {
+            display: block;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .queue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .queue-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .queue-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #7f8c8d;
+            cursor: pointer;
+            padding: 4px 8px;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+
+        .queue-close:hover {
+            color: var(--danger);
+        }
+
+        .queue-progress {
+            margin-bottom: 16px;
+        }
+
+        .queue-progress-text {
+            font-size: 14px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .queue-progress-bar-container {
+            background: linear-gradient(135deg, #e8eaf6 0%, #e0e0e0 100%);
+            border-radius: 12px;
+            height: 28px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .queue-progress-bar {
+            background: linear-gradient(90deg, #1a73e8 0%, #1557b0 50%, #1a73e8 100%);
+            background-size: 200% 100%;
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(26, 115, 232, 0.4);
+            animation: shimmer 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .queue-progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: slide 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slide {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .queue-current-file {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .queue-current-label {
+            font-size: 11px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .queue-current-name {
+            font-size: 13px;
+            color: var(--dark);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .queue-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--success);
+            margin-top: 8px;
+        }
+
+        .queue-status i {
+            font-size: 14px;
+        }
+
+        .queue-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .queue-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .queue-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .queue-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .queue-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .queue-list-label {
+            font-size: 12px;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            font-size: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .queue-item.completed {
+            background: #e8f5e9;
+            border-left-color: var(--success);
+        }
+
+        .queue-item.failed {
+            background: #ffebee;
+            border-left-color: var(--danger);
+        }
+
+        .queue-item.processing {
+            background: #e3f2fd;
+            border-left-color: var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        .queue-item.pending {
+            background: #f8f9fa;
+            border-left-color: #bdc3c7;
+        }
+
+        .queue-item-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .queue-item.completed .queue-item-icon {
+            color: var(--success);
+        }
+
+        .queue-item.failed .queue-item-icon {
+            color: var(--danger);
+        }
+
+        .queue-item.processing .queue-item-icon {
+            color: var(--primary);
+        }
+
+        .queue-item.pending .queue-item-icon {
+            color: #7f8c8d;
+        }
+
+        .queue-item-content {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .queue-item-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--dark);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .queue-item-status {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .queue-item.completed .queue-item-status {
+            color: var(--success);
+        }
+
+        .queue-item.failed .queue-item-status {
+            color: var(--danger);
+        }
+
+        .queue-item.processing .queue-item-status {
+            color: var(--primary);
+        }
+
+        .queue-item.pending .queue-item-status {
+            color: #7f8c8d;
+        }
+
+        /* Queue Toggle Button */
+        .queue-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 1999;
+        }
+
+        .queue-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.6);
+        }
+
+        .queue-toggle-btn:active {
+            transform: scale(0.95);
+        }
+
+        .queue-toggle-btn.has-queue {
+            animation: pulse-queue 2s infinite;
+        }
+
+        @keyframes pulse-queue {
+            0%, 100% {
+                box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 20px rgba(26, 115, 232, 0.8);
+            }
+        }
+
+        .queue-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            border: 2px solid white;
+        }
+
+        /* Keep toggle button visible when panel is open - change icon */
+        .queue-toggle-btn.panel-open {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .queue-toggle-btn.panel-open i {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background: #1a3a52;
@@ -1160,7 +1514,11 @@
                             {% elif upload.status == 'failed' %}
                                 <span class="badge badge-danger">FAILED</span>
                             {% elif upload.status == 'extracted' %}
-                                <span class="badge badge-info">READY</span>
+                                {% if not upload.has_credentials or not upload.has_subject_url %}
+                                    <span class="badge badge-warning">PENDING</span>
+                                {% else %}
+                                    <span class="badge badge-info">READY</span>
+                                {% endif %}
                             {% else %}
                                 <span class="badge badge-secondary">{{ upload.status|upper }}</span>
                             {% endif %}
@@ -1287,6 +1645,49 @@
             </div>
         </div>
     </div>
+
+    <!-- ===== UPLOAD QUEUE PANEL ===== -->
+    <div id="uploadQueuePanel" class="upload-queue-panel">
+        <div class="queue-header">
+            <div class="queue-title">
+                <i class="fas fa-cloud-upload-alt"></i>
+                Upload Progress
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button class="queue-close" onclick="clearQueueData()" title="Clear Queue" style="font-size: 16px; padding: 4px 12px;">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button class="queue-close" onclick="closeQueuePanel()" title="Close Panel">&times;</button>
+            </div>
+        </div>
+        
+        <div class="queue-progress">
+            <div class="queue-progress-text" id="queueProgressText">Processing file 1 of 3...</div>
+            <div class="queue-progress-bar-container">
+                <div class="queue-progress-bar" id="queueProgressBar" style="width: 33%;">33%</div>
+            </div>
+        </div>
+        
+        <div class="queue-current-file">
+            <div class="queue-current-label">Currently Uploading</div>
+            <div class="queue-current-name" id="queueCurrentFile">document1.pdf</div>
+            <div class="queue-status" id="queueStatus">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Browser opened, waiting for upload...</span>
+            </div>
+        </div>
+        
+        <div class="queue-list">
+            <div class="queue-list-label">Queue</div>
+            <div id="queueItemsList"></div>
+        </div>
+    </div>
+
+    <!-- ===== QUEUE TOGGLE BUTTON ===== -->
+    <button class="queue-toggle-btn" id="queueToggleBtn" onclick="toggleQueuePanel()" title="View Upload Queue" style="display: none;">
+        <i class="fas fa-tasks" id="queueToggleIcon"></i>
+        <span class="queue-badge" id="queueBadge">0</span>
+    </button>
 
     <!-- ===== FOOTER ===== -->
     <footer>
@@ -1596,11 +1997,42 @@
         }
 
         function onUploadToLMS(pdfId) {
+            // Get the filename from the table first (before confirm dialog)
+            const row = document.querySelector(`button[onclick="onUploadToLMS(${pdfId})"]`).closest('tr');
+            const filename = row.cells[1].textContent;
+            
             showConfirm('Are you sure you want to upload this file to LMS?', () => {
-                uploadToLMS(pdfId);
+                // Disable the upload button and show uploading state
+                const uploadBtn = document.getElementById(`upload-btn-${pdfId}`);
+                if (uploadBtn) {
+                    uploadBtn.disabled = true;
+                    uploadBtn.innerHTML = '<i class="fas fa-clock"></i> Queued';
+                }
+                
+                // Add to existing queue instead of replacing it
+                const newFile = {id: pdfId, filename: filename, status: 'pending'};
+                
+                // Check if already in queue
+                const alreadyInQueue = uploadQueue.some(item => item.id === pdfId);
+                if (!alreadyInQueue) {
+                    uploadQueue.push(newFile);
+                    showAlert(`Added "${filename}" to upload queue (${uploadQueue.length} file${uploadQueue.length > 1 ? 's' : ''} total)`, 'info');
+                } else {
+                    showAlert(`"${filename}" is already in the upload queue`, 'warning');
+                    return;
+                }
+                
+                showQueuePanel();
+                updateQueueUI();
+                
+                // Set initial status if not already uploading
+                if (!isUploading) {
+                    document.getElementById('queueStatus').innerHTML = 
+                        '<i class="fas fa-hourglass-start"></i><span>Starting upload...</span>';
+                    processUploadQueue();
+                }
             }, 'btn-success');
         }
-
         async function uploadToLMS(pdfId) {
             const btnId = `upload-btn-${pdfId}`;
             updateButtonState(btnId, true, 'Uploading...', '<i class="fas fa-check"></i> Upload');
@@ -1630,24 +2062,54 @@
         }
         
         async function uploadAllExtracted() {
-            showAlert('Starting bulk upload... This may take time.', 'info');
-            try {
-                const response = await fetch('/api/upload-multiple-lms/', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({pdf_ids: []})
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showAlert(result.message || 'Bulk upload complete! Refreshing...', 'success');
-                    setTimeout(() => window.location.reload(), 1500);
-                } else {
-                    showAlert(result.error, 'danger');
+            // Collect all ready files
+            const newFiles = [];
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                // Check if this row has an upload button that's enabled
+                const uploadBtn = row.querySelector('button[onclick^="onUploadToLMS"]');
+                if (uploadBtn && !uploadBtn.disabled) {
+                    const idMatch = uploadBtn.getAttribute('onclick').match(/onUploadToLMS\((\d+)\)/);
+                    if (idMatch) {
+                        const pdfId = parseInt(idMatch[1]);
+                        const filename = row.cells[1].textContent;
+                        
+                        // Check if already in queue
+                        const alreadyInQueue = uploadQueue.some(item => item.id === pdfId);
+                        if (!alreadyInQueue) {
+                            newFiles.push({id: pdfId, filename: filename, status: 'pending'});
+                            
+                            // Disable the upload button and show queued state
+                            uploadBtn.disabled = true;
+                            uploadBtn.innerHTML = '<i class="fas fa-clock"></i> Queued';
+                        }
+                    }
                 }
-            } catch (error) {
-                showAlert('Error: ' + error.message, 'danger');
+            });
+            
+            if (newFiles.length === 0) {
+                if (isUploading) {
+                    showAlert('All ready files are already in the upload queue', 'info');
+                } else {
+                    showAlert('No files ready for upload', 'warning');
+                }
+                return;
+            }
+            
+            // Add to existing queue instead of replacing
+            uploadQueue.push(...newFiles);
+            
+            showAlert(`Added ${newFiles.length} file${newFiles.length > 1 ? 's' : ''} to upload queue (${uploadQueue.length} total)`, 'info');
+            
+            showQueuePanel();
+            updateQueueUI();
+            
+            // Set initial status if not already uploading
+            if (!isUploading) {
+                document.getElementById('queueStatus').innerHTML = 
+                    '<i class="fas fa-hourglass-start"></i><span>Starting batch upload...</span>';
+                processUploadQueue();
             }
         }
 
@@ -1659,6 +2121,27 @@
 
         async function deletePDF(pdfId) {
             try {
+                // Remove from upload queue if present
+                const queueIndex = uploadQueue.findIndex(item => item.id === pdfId);
+                if (queueIndex !== -1) {
+                    uploadQueue.splice(queueIndex, 1);
+                    
+                    // Adjust current index if needed
+                    if (queueIndex < currentUploadIndex) {
+                        currentUploadIndex--;
+                    }
+                    
+                    updateQueueUI();
+                    saveQueueToStorage();
+                    showAlert('File removed from upload queue', 'info');
+                    
+                    // If queue is empty, close panel
+                    if (uploadQueue.length === 0) {
+                        closeQueuePanel();
+                        clearQueueFromStorage();
+                    }
+                }
+                
                 const response = await fetch(`/api/delete/${pdfId}/`, { method: 'POST' });
                 const result = await response.json();
 
@@ -1762,6 +2245,311 @@
             }
         }
 
+        // ===== UPLOAD QUEUE PANEL FUNCTIONS =====
+        let uploadQueue = [];
+        let currentUploadIndex = 0;
+        let isUploading = false;
+
+        // Load queue from localStorage on page load
+        function loadQueueFromStorage() {
+            try {
+                const savedQueue = localStorage.getItem('uploadQueue');
+                const savedIndex = localStorage.getItem('currentUploadIndex');
+                const savedIsUploading = localStorage.getItem('isUploading');
+                
+                if (savedQueue) {
+                    uploadQueue = JSON.parse(savedQueue);
+                    currentUploadIndex = savedIndex ? parseInt(savedIndex) : 0;
+                    isUploading = savedIsUploading === 'true';
+                    
+                    if (uploadQueue.length > 0) {
+                        updateQueueToggleButton();
+                        
+                        if (isUploading) {
+                            showQueuePanel();
+                            updateQueueUI();
+                            // Resume upload if it was in progress
+                            if (currentUploadIndex < uploadQueue.length) {
+                                processUploadQueue();
+                            }
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading queue from storage:', e);
+            }
+        }
+
+        // Save queue to localStorage
+        function saveQueueToStorage() {
+            try {
+                localStorage.setItem('uploadQueue', JSON.stringify(uploadQueue));
+                localStorage.setItem('currentUploadIndex', currentUploadIndex.toString());
+                localStorage.setItem('isUploading', isUploading.toString());
+            } catch (e) {
+                console.error('Error saving queue to storage:', e);
+            }
+        }
+
+        // Clear queue from localStorage
+        function clearQueueFromStorage() {
+            try {
+                localStorage.removeItem('uploadQueue');
+                localStorage.removeItem('currentUploadIndex');
+                localStorage.removeItem('isUploading');
+            } catch (e) {
+                console.error('Error clearing queue from storage:', e);
+            }
+        }
+
+        function showQueuePanel() {
+            const panel = document.getElementById('uploadQueuePanel');
+            const toggleBtn = document.getElementById('queueToggleBtn');
+            const toggleIcon = document.getElementById('queueToggleIcon');
+            
+            panel.classList.add('active');
+            toggleBtn.classList.add('panel-open');
+            toggleIcon.className = 'fas fa-times'; // Change to close icon
+            toggleBtn.title = 'Close Upload Queue';
+            
+            updateQueueToggleButton();
+        }
+
+        function clearQueueData() {
+            if (isUploading) {
+                if (!confirm('Upload is in progress. Are you sure you want to clear the queue? This will stop all pending uploads.')) {
+                    return;
+                }
+            } else {
+                if (!confirm('Are you sure you want to clear the upload queue?')) {
+                    return;
+                }
+            }
+            
+            // Reset all queue variables
+            uploadQueue = [];
+            currentUploadIndex = 0;
+            isUploading = false;
+            
+            // Clear from storage
+            clearQueueFromStorage();
+            
+            // Close the panel
+            closeQueuePanel();
+            
+            // Update UI
+            updateQueueToggleButton();
+            
+            showAlert('Upload queue cleared', 'success');
+            
+            // Refresh the page to reset button states
+            setTimeout(() => window.location.reload(), 1000);
+        }
+
+        function closeQueuePanel() {
+            if (isUploading) {
+                if (!confirm('Upload is in progress. Are you sure you want to close the panel? The upload will continue in the background.')) {
+                    return;
+                }
+            }
+            
+            const panel = document.getElementById('uploadQueuePanel');
+            const toggleBtn = document.getElementById('queueToggleBtn');
+            const toggleIcon = document.getElementById('queueToggleIcon');
+            
+            panel.classList.remove('active');
+            toggleBtn.classList.remove('panel-open');
+            toggleIcon.className = 'fas fa-tasks'; // Change back to queue icon
+            toggleBtn.title = 'View Upload Queue';
+            
+            updateQueueToggleButton();
+        }
+
+        function toggleQueuePanel() {
+            const panel = document.getElementById('uploadQueuePanel');
+            if (panel.classList.contains('active')) {
+                closeQueuePanel();
+            } else {
+                showQueuePanel();
+            }
+        }
+
+        function updateQueueToggleButton() {
+            const toggleBtn = document.getElementById('queueToggleBtn');
+            const badge = document.getElementById('queueBadge');
+            const panel = document.getElementById('uploadQueuePanel');
+            const queueCount = uploadQueue.length;
+            
+            // Always show button if there are items in queue
+            if (queueCount > 0) {
+                toggleBtn.style.display = 'flex';
+                badge.textContent = queueCount;
+                
+                // Add animation if uploading
+                if (isUploading) {
+                    toggleBtn.classList.add('has-queue');
+                } else {
+                    toggleBtn.classList.remove('has-queue');
+                }
+            } else {
+                // Hide button only if queue is empty AND panel is closed
+                if (!panel.classList.contains('active')) {
+                    toggleBtn.style.display = 'none';
+                }
+            }
+        }
+
+        function updateQueueUI() {
+            const total = uploadQueue.length;
+            const current = currentUploadIndex + 1;
+            const completedCount = currentUploadIndex;
+            const percentage = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+            
+            // Update progress text - show which file is being processed
+            if (currentUploadIndex < uploadQueue.length) {
+                document.getElementById('queueProgressText').textContent = 
+                    `Processing file ${current} of ${total}...`;
+            } else {
+                document.getElementById('queueProgressText').textContent = 
+                    `Completed ${total} of ${total} files`;
+            }
+            
+            document.getElementById('queueProgressBar').style.width = `${percentage}%`;
+            document.getElementById('queueProgressBar').textContent = `${percentage}%`;
+            
+            if (currentUploadIndex < uploadQueue.length) {
+                const currentFile = uploadQueue[currentUploadIndex];
+                document.getElementById('queueCurrentFile').textContent = currentFile.filename;
+            }
+            
+            // Update queue list
+            const queueList = document.getElementById('queueItemsList');
+            queueList.innerHTML = '';
+            
+            uploadQueue.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                let statusClass = '';
+                let icon = '';
+                let statusText = '';
+                
+                // Determine status based on item.status field
+                if (item.status === 'completed') {
+                    statusClass = 'completed';
+                    icon = '<i class="fas fa-check-circle queue-item-icon"></i>';
+                    statusText = 'Success';
+                } else if (item.status === 'failed') {
+                    statusClass = 'failed';
+                    icon = '<i class="fas fa-times-circle queue-item-icon"></i>';
+                    statusText = 'Failed';
+                } else if (index === currentUploadIndex && isUploading) {
+                    statusClass = 'processing';
+                    icon = '<i class="fas fa-spinner fa-spin queue-item-icon"></i>';
+                    statusText = 'Uploading';
+                } else if (index < currentUploadIndex) {
+                    statusClass = 'completed';
+                    icon = '<i class="fas fa-check-circle queue-item-icon"></i>';
+                    statusText = 'Success';
+                } else {
+                    statusClass = 'pending';
+                    icon = '<i class="fas fa-clock queue-item-icon"></i>';
+                    statusText = 'Waiting';
+                }
+                
+                itemDiv.className = `queue-item ${statusClass}`;
+                itemDiv.innerHTML = `
+                    ${icon}
+                    <div class="queue-item-content">
+                        <div class="queue-item-name">${item.filename}</div>
+                        <div class="queue-item-status">${statusText}</div>
+                    </div>
+                `;
+                queueList.appendChild(itemDiv);
+            });
+            
+            saveQueueToStorage();
+            updateQueueToggleButton();
+        }
+
+        async function processUploadQueue() {
+            if (isUploading || currentUploadIndex >= uploadQueue.length) {
+                return;
+            }
+            
+            isUploading = true;
+            saveQueueToStorage();
+            
+            while (currentUploadIndex < uploadQueue.length) {
+                const currentFile = uploadQueue[currentUploadIndex];
+                
+                // Mark as processing
+                currentFile.status = 'processing';
+                updateQueueUI();
+                
+                try {
+                    // Upload the current file - this will wait for the browser to close
+                    document.getElementById('queueStatus').innerHTML = 
+                        '<i class="fas fa-spinner fa-spin"></i><span>Browser opened, waiting for upload to complete...</span>';
+                    
+                    const response = await fetch(`/api/upload-lms/${currentFile.id}/`, { method: 'POST' });
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Mark as completed
+                        currentFile.status = 'completed';
+                        document.getElementById('queueStatus').innerHTML = 
+                            '<i class="fas fa-check-circle" style="color: var(--success);"></i><span>Upload successful!</span>';
+                    } else {
+                        // Mark as failed
+                        currentFile.status = 'failed';
+                        showAlert(`Error uploading ${currentFile.filename}: ${result.error}`, 'danger');
+                        document.getElementById('queueStatus').innerHTML = 
+                            '<i class="fas fa-times-circle" style="color: var(--danger);"></i><span>Upload failed!</span>';
+                    }
+                    
+                    // Move to next file
+                    currentUploadIndex++;
+                    updateQueueUI();
+                    saveQueueToStorage();
+                    
+                    // Small delay before starting next upload
+                    if (currentUploadIndex < uploadQueue.length) {
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                    
+                } catch (error) {
+                    // Mark as failed
+                    currentFile.status = 'failed';
+                    showAlert(`Error uploading ${currentFile.filename}: ${error.message}`, 'danger');
+                    document.getElementById('queueStatus').innerHTML = 
+                        '<i class="fas fa-times-circle" style="color: var(--danger);"></i><span>Error occurred!</span>';
+                    currentUploadIndex++;
+                    updateQueueUI();
+                    saveQueueToStorage();
+                    
+                    // Small delay before next attempt
+                    if (currentUploadIndex < uploadQueue.length) {
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
+            }
+            
+            isUploading = false;
+            saveQueueToStorage();
+            updateQueueToggleButton();
+            
+            // All uploads complete
+            document.getElementById('queueProgressText').textContent = 'All uploads complete!';
+            document.getElementById('queueProgressBar').style.width = '100%';
+            document.getElementById('queueProgressBar').textContent = '100%';
+            document.getElementById('queueCurrentFile').textContent = 'All files processed';
+            document.getElementById('queueStatus').innerHTML = 
+                '<i class="fas fa-check-circle" style="color: var(--success);"></i><span>All files uploaded successfully!</span>';
+            
+            clearQueueFromStorage();
+            showAlert('All uploads complete! Refreshing in 3 seconds...', 'success');
+            setTimeout(() => window.location.reload(), 3000);
+        }
+
         // Add event listener for search input
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
@@ -1769,6 +2557,9 @@
                 searchInput.addEventListener('keyup', searchTable);
                 searchInput.addEventListener('search', searchTable);
             }
+            
+            // Load any existing upload queue from localStorage
+            loadQueueFromStorage();
         });
     </script>
 </body>
