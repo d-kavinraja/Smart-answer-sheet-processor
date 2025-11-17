@@ -521,6 +521,16 @@ def get_upload_status(request, pdf_id):
     """Get upload status"""
     try:
         pdf_upload = get_object_or_404(PDFUpload, id=pdf_id)
+        has_credentials = pdf_upload.has_credentials()
+        subject_url_configured = pdf_upload.has_subject_url()
+        missing_requirements = []
+        if not has_credentials:
+            missing_requirements.append('credentials')
+        if not subject_url_configured:
+            missing_requirements.append('subject_url')
+
+        register_image_url = pdf_upload.register_image.url if pdf_upload.register_image else None
+        subject_image_url = pdf_upload.subject_image.url if pdf_upload.subject_image else None
         return JsonResponse({
             'success': True,
             'data': {
@@ -532,9 +542,15 @@ def get_upload_status(request, pdf_id):
                 'username': pdf_upload.username,
                 'errorMessage': pdf_upload.error_message,
                 'isUploaded': pdf_upload.is_uploaded,
-                'hasCredentials': pdf_upload.has_credentials(),
-                'subjectUrlConfigured': pdf_upload.has_subject_url(),
-                'missingRequirements': pdf_upload.get_missing_requirements()
+                'hasCredentials': has_credentials,
+                'subjectUrlConfigured': subject_url_configured,
+                'missingRequirements': missing_requirements,
+                'registerImageUrl': register_image_url,
+                'subjectImageUrl': subject_image_url,
+                'createdAt': pdf_upload.created_at.isoformat(),
+                'updatedAt': pdf_upload.updated_at.isoformat(),
+                'statusDisplay': pdf_upload.get_status_display(),
+                'fileSize': pdf_upload.file_size
             }
         })
     except Exception as e:

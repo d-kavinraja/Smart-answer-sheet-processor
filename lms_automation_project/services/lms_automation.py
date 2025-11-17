@@ -7,6 +7,7 @@ import os
 import sys
 import json
 import time
+import random
 import traceback
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -28,9 +29,39 @@ class LMSAutomation:
         self.driver = None
         self.wait = None
 
+    def human_delay(self, min_delay=0.8, max_delay=1.8):
+        time.sleep(random.uniform(min_delay, max_delay))
+
+    def detect_recaptcha(self):
+        try:
+            if not self.driver:
+                return False
+            frames = self.driver.find_elements(By.CSS_SELECTOR, "iframe[src*='recaptcha'], iframe[title*='captcha']")
+            return len(frames) > 0
+        except Exception:
+            return False
+
+    def wait_for_manual_recaptcha(self, timeout=120):
+        start = time.time()
+        print("⚠️ reCAPTCHA detected. Please solve it manually in the opened Chrome window.", file=sys.stderr)
+        while time.time() - start < timeout:
+            self.human_delay(1.0, 2.0)
+            if not self.detect_recaptcha():
+                print("✅ reCAPTCHA solved, continuing automation", file=sys.stderr)
+                return True
+        print("⏰ Timed out waiting for reCAPTCHA solution", file=sys.stderr)
+        return False
+
     def setup_driver(self):
         try:
             options = Options()
+            user_agent = os.getenv("LMS_AUTOMATION_UA", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.118 Safari/537.36")
+            profile_dir = os.path.join(os.path.dirname(__file__), "..", "temp", "chrome-profile")
+            os.makedirs(profile_dir, exist_ok=True)
+            options.add_argument(f"--user-data-dir={os.path.abspath(profile_dir)}")
+            options.add_argument("--profile-directory=Default")
+            options.add_argument("--lang=en-US")
+            options.add_argument(f"--user-agent={user_agent}")
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--disable-gpu")
@@ -46,6 +77,8 @@ class LMSAutomation:
             options.add_argument("--disable-ipc-flooding-protection")
             options.add_argument("--timeout=300000")
             options.add_argument("--page-load-strategy=normal")
+            options.add_argument("--disable-blink-features=AutomationControlled")
+            options.add_argument("--start-maximized")
             options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
             options.add_experimental_option('useAutomationExtension', False)
 
@@ -62,6 +95,13 @@ class LMSAutomation:
             self.driver.implicitly_wait(30)
             self.driver.set_window_size(1920, 1080)
             self.driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            self.driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": user_agent})
+            self.driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                "source": """
+                    Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']});
+                    Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3]});
+                """
+            })
             self.wait = WebDriverWait(self.driver, 60)
             
             print("✅ WebDriver setup completed successfully", file=sys.stderr)
@@ -86,18 +126,28 @@ class LMSAutomation:
                 return {"success": False, "message": "WebDriver session terminated"}
 
             self.driver.get(f"{self.LMS_URL}/login/index.php")
-            time.sleep(3)
+            self.human_delay(2.0, 3.5)
+
+            if self.detect_recaptcha():
+                if not self.wait_for_manual_recaptcha():
+                    return {"success": False, "message": "reCAPTCHA not solved in time"}
 
             username_field = self.wait.until(EC.presence_of_element_located((By.ID, "username")))
             username_field.clear()
             username_field.send_keys(username)
+            self.human_delay()
 
             password_field = self.driver.find_element(By.ID, "password")
             password_field.clear()
             password_field.send_keys(password)
+            self.human_delay()
 
             self.driver.find_element(By.ID, "loginbtn").click()
             print("✅ Login credentials submitted, waiting for dashboard...", file=sys.stderr)
+
+            if self.detect_recaptcha():
+                if not self.wait_for_manual_recaptcha():
+                    return {"success": False, "message": "reCAPTCHA not solved in time"}
 
             self.wait.until(EC.any_of(
                 EC.url_contains("/my/"),

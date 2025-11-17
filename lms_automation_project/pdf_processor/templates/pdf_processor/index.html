@@ -545,6 +545,12 @@
             border-color: #d2e3fc;
         }
 
+        .badge-primary {
+            background: #e3f2fd;
+            color: #1967d2;
+            border-color: #90caf9;
+        }
+
         .badge-secondary {
             background: #f1f3f4;
             color: var(--secondary);
@@ -896,6 +902,31 @@
             border-bottom: 2px solid #e0e0e0;
         }
 
+        .queue-hide-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .queue-hide-btn {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: var(--dark);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s ease, border 0.2s ease;
+        }
+
+        .queue-hide-btn:hover {
+            background: #edf2ff;
+            border-color: var(--primary);
+        }
+
         .queue-title {
             font-size: 16px;
             font-weight: 600;
@@ -1015,6 +1046,122 @@
 
         .queue-status i {
             font-size: 14px;
+        }
+
+        /* Upload Process Log Styles */
+        .upload-log-section {
+            margin-top: 12px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 8px;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .upload-log-toggle {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 8px 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+            user-select: none;
+            border: 1px solid #e0e0e0;
+        }
+
+        .upload-log-toggle:hover {
+            background: #e9ecef;
+        }
+
+        .upload-log-toggle-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-log-toggle-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .upload-log-toggle-icon {
+            font-size: 12px;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .upload-log-toggle-icon.expanded {
+            transform: rotate(90deg);
+        }
+
+        .upload-log-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .upload-log-content.expanded {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .upload-log-box {
+            margin-top: 8px;
+            background: #1e1e1e;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 11px;
+            color: #d4d4d4;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .upload-log-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .upload-log-box::-webkit-scrollbar-track {
+            background: #2d2d2d;
+            border-radius: 3px;
+        }
+
+        .upload-log-box::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 3px;
+        }
+
+        .upload-log-box::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        .upload-log-entry {
+            margin-bottom: 6px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .upload-log-entry.info {
+            color: #4fc3f7;
+        }
+
+        .upload-log-entry.success {
+            color: #81c784;
+        }
+
+        .upload-log-entry.error {
+            color: #e57373;
+        }
+
+        .upload-log-entry.warning {
+            color: #ffb74d;
+        }
+
+        .upload-log-timestamp {
+            color: #999;
+            margin-right: 8px;
         }
 
         .queue-list {
@@ -1158,7 +1305,7 @@
             justify-content: center;
             font-size: 24px;
             transition: all 0.3s ease;
-            z-index: 1999;
+            z-index: 2100;
         }
 
         .queue-toggle-btn:hover {
@@ -1203,11 +1350,19 @@
         /* Keep toggle button visible when panel is open - change icon */
         .queue-toggle-btn.panel-open {
             background: linear-gradient(135deg, #34495e, #2c3e50);
+            right: 420px;
         }
 
         .queue-toggle-btn.panel-open i {
             transform: rotate(0deg);
             transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .queue-toggle-btn.panel-open {
+                right: 20px;
+                bottom: 120px;
+            }
         }
 
         /* ===== FOOTER ===== */
@@ -1417,21 +1572,21 @@
                 <div class="quick-stat" title="Total documents">
                     <div class="quick-stat-icon"><i class="fas fa-layer-group"></i></div>
                     <div>
-                        <div class="quick-stat-value">{{ total_count }}</div>
+                        <div class="quick-stat-value" id="totalCountValue">{{ total_count }}</div>
                         <div class="quick-stat-label">Total</div>
                     </div>
                 </div>
                 <div class="quick-stat" title="Pending documents">
                     <div class="quick-stat-icon"><i class="fas fa-hourglass-half"></i></div>
                     <div>
-                        <div class="quick-stat-value">{{ pending_count }}</div>
+                        <div class="quick-stat-value" id="pendingCountValue">{{ pending_count }}</div>
                         <div class="quick-stat-label">Pending</div>
                     </div>
                 </div>
                 <div class="quick-stat" title="Uploaded documents">
                     <div class="quick-stat-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <div>
-                        <div class="quick-stat-value">{{ uploaded_count }}</div>
+                        <div class="quick-stat-value" id="uploadedCountValue">{{ uploaded_count }}</div>
                         <div class="quick-stat-label">Uploaded</div>
                     </div>
                 </div>
@@ -1480,7 +1635,7 @@
 
         <!-- Table -->
         <div class="table-wrapper">
-            <table>
+            <table id="uploadsTable">
                 <thead>
                     <tr>
                         <th>S.No</th>
@@ -1492,9 +1647,9 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="uploadsTableBody">
                 {% for upload in uploads %}
-                    <tr>
+                    <tr class="upload-row" id="pdf-row-{{ upload.id }}" data-pdf-id="{{ upload.id }}">
                         <td>{{ forloop.counter }}</td>
                         <td>{{ upload.filename }}</td>
                         <td>{{ upload.register_number | default:'-' }}</td>
@@ -1508,19 +1663,19 @@
                         </td>
                         <td>
                             {% if upload.status == 'uploaded' %}
-                                <span class="badge badge-success">UPLOADED</span>
+                                <span class="badge badge-success status-badge" id="status-badge-{{ upload.id }}">UPLOADED</span>
                             {% elif upload.status == 'pending' %}
-                                <span class="badge badge-warning">PENDING</span>
+                                <span class="badge badge-warning status-badge" id="status-badge-{{ upload.id }}">PENDING</span>
                             {% elif upload.status == 'failed' %}
-                                <span class="badge badge-danger">FAILED</span>
+                                <span class="badge badge-danger status-badge" id="status-badge-{{ upload.id }}">FAILED</span>
                             {% elif upload.status == 'extracted' %}
                                 {% if not upload.has_credentials or not upload.has_subject_url %}
-                                    <span class="badge badge-warning">PENDING</span>
+                                    <span class="badge badge-warning status-badge" id="status-badge-{{ upload.id }}">PENDING</span>
                                 {% else %}
-                                    <span class="badge badge-info">READY</span>
+                                    <span class="badge badge-info status-badge" id="status-badge-{{ upload.id }}">READY</span>
                                 {% endif %}
                             {% else %}
-                                <span class="badge badge-secondary">{{ upload.status|upper }}</span>
+                                <span class="badge badge-secondary status-badge" id="status-badge-{{ upload.id }}">{{ upload.status|upper }}</span>
                             {% endif %}
                         </td>
                         <td>
@@ -1615,7 +1770,7 @@
 
                 {% endfor %}
                 {% if uploads|length == 0 %}
-                    <tr>
+                    <tr id="emptyUploadsRow">
                         <td colspan="7" style="text-align: center; color: #95a5a6; padding: 25px; font-size: 14px;">
                             No documents found for this filter.
                         </td>
@@ -1660,8 +1815,15 @@
                 <button class="queue-close" onclick="closeQueuePanel()" title="Close Panel">&times;</button>
             </div>
         </div>
+
+        <div class="queue-hide-bar">
+            <button class="queue-hide-btn" id="queueHideBtn" onclick="toggleQueueDetails()">
+                <i class="fas fa-eye-slash"></i>
+                <span>Hide Progress</span>
+            </button>
+        </div>
         
-        <div class="queue-progress">
+        <div class="queue-progress" id="queueProgressSection">
             <div class="queue-progress-text" id="queueProgressText">Processing file 1 of 3...</div>
             <div class="queue-progress-bar-container">
                 <div class="queue-progress-bar" id="queueProgressBar" style="width: 33%;">33%</div>
@@ -1674,6 +1836,25 @@
             <div class="queue-status" id="queueStatus">
                 <i class="fas fa-spinner fa-spin"></i>
                 <span>Browser opened, waiting for upload...</span>
+            </div>
+            
+            <!-- Upload Process Log Toggle -->
+            <div class="upload-log-section">
+                <div class="upload-log-toggle" onclick="toggleUploadLogs()">
+                    <div class="upload-log-toggle-left">
+                        <i class="fas fa-chevron-right upload-log-toggle-icon" id="uploadLogToggleIcon"></i>
+                        <span class="upload-log-toggle-title">Upload Process Details</span>
+                    </div>
+                    <span style="font-size: 10px; color: var(--secondary);" id="uploadLogCount">0 logs</span>
+                </div>
+                <div class="upload-log-content" id="uploadLogContent">
+                    <div class="upload-log-box" id="uploadLogBox">
+                        <div class="upload-log-entry info">
+                            <span class="upload-log-timestamp">[00:00:00]</span>
+                            <span>Waiting for upload to start...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -1875,6 +2056,336 @@
             }
         }
 
+        // --- Row Rendering Helpers ---
+        const STATUS_BADGE_MAP = {
+            ready: { text: 'READY', className: 'badge-info' },
+            queued: { text: 'QUEUED', className: 'badge-warning' },
+            uploading: { text: 'UPLOADING', className: 'badge-primary' },
+            uploaded: { text: 'UPLOADED', className: 'badge-success' },
+            pending: { text: 'PENDING', className: 'badge-warning' },
+            failed: { text: 'FAILED', className: 'badge-danger' }
+        };
+
+        function setStatusBadgeState(pdfId, state) {
+            const badge = document.getElementById(`status-badge-${pdfId}`);
+            if (!badge) return;
+
+            const config = STATUS_BADGE_MAP[state];
+            if (!config) {
+                badge.className = 'badge status-badge badge-secondary';
+                badge.textContent = state ? state.toUpperCase() : 'STATUS';
+                return;
+            }
+
+            badge.className = `badge status-badge ${config.className}`;
+            badge.textContent = config.text;
+        }
+
+        function determineStatusState(upload) {
+            if (!upload) return 'pending';
+            if (upload.isUploaded || upload.status === 'uploaded') return 'uploaded';
+            if (upload.status === 'uploading') return 'uploading';
+            if (upload.status === 'failed') return 'failed';
+            if (upload.status === 'queued') return 'queued';
+            if (upload.status === 'extracted') {
+                return (upload.hasCredentials && upload.subjectUrlConfigured) ? 'ready' : 'pending';
+            }
+            return 'pending';
+        }
+
+        function buildLmsUserHtml(upload) {
+            if (upload.hasCredentials) {
+                const label = upload.username || 'Configured';
+                return `<span class="badge badge-info">${label}</span>`;
+            }
+            return '<span class="badge badge-secondary">N/A</span>';
+        }
+
+        function buildActionButtonsHtml(upload) {
+            const buttons = [];
+
+            if (upload.status === 'pending' || upload.status === 'failed') {
+                buttons.push(`
+                    <button class="action-btn" id="extract-btn-${upload.id}" onclick="processPDF(${upload.id})">
+                        <i class="fas fa-cogs"></i> Extract
+                    </button>
+                `);
+            }
+
+            if (upload.status === 'extracted') {
+                buttons.push(`
+                    <button class="action-btn" id="reextract-btn-${upload.id}" onclick="onReExtractPDF(${upload.id})">
+                        <i class="fas fa-redo"></i> Re-extract
+                    </button>
+                `);
+                buttons.push(`
+                    <button class="action-btn" onclick="recheckConfiguration(${upload.id})">
+                        <i class="fas fa-check-double"></i> Recheck
+                    </button>
+                `);
+                buttons.push(`
+                    <button class="action-btn" onclick="toggleImages(${upload.id}, this)">
+                        <i class="fas fa-images"></i> View Images
+                    </button>
+                `);
+
+                if (!upload.isUploaded) {
+                    const disabledAttr = (!upload.hasCredentials || !upload.subjectUrlConfigured) ? 'disabled' : '';
+                    buttons.push(`
+                        <button class="action-btn action-btn-success" id="upload-btn-${upload.id}" onclick="onUploadToLMS(${upload.id})" ${disabledAttr}>
+                            <i class="fas fa-check"></i> Upload
+                        </button>
+                    `);
+                }
+
+                if (!upload.hasCredentials || !upload.subjectUrlConfigured) {
+                    buttons.push(`
+                        <button class="action-btn action-btn-warning" onclick="toggleErrorDetails(${upload.id}, this)">
+                            <i class="fas fa-exclamation-circle"></i> View Error
+                        </button>
+                    `);
+                }
+            }
+
+            buttons.push(`
+                <button class="action-btn action-btn-danger" onclick="onDeletePDF(${upload.id})">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            `);
+
+            return `<div class="action-buttons">${buttons.join('')}</div>`;
+        }
+
+        function buildErrorRowHtml(upload) {
+            const needsErrorRow = upload.status === 'extracted' && (!upload.hasCredentials || !upload.subjectUrlConfigured);
+            if (!needsErrorRow) {
+                return '';
+            }
+
+            const messages = [];
+            if (!upload.hasCredentials) {
+                messages.push(`
+                    <div class="error-message">
+                        <i class="fas fa-user-times error-icon"></i>
+                        <span>No LMS credentials found for register number <strong>${upload.registerNumber || '-'}</strong>. Please add credentials in the configuration.</span>
+                    </div>
+                `);
+            }
+            if (!upload.subjectUrlConfigured) {
+                messages.push(`
+                    <div class="error-message">
+                        <i class="fas fa-link error-icon"></i>
+                        <span>No subject URL configured for subject code <strong>${upload.subjectCode || '-'}</strong>. Please add the subject URL in the configuration.</span>
+                    </div>
+                `);
+            }
+
+            return `
+                <tr class="error-details-row" id="error-${upload.id}" style="display: none;">
+                    <td colspan="7">
+                        <div class="error-details-content">
+                            <div class="error-details-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Configuration Errors
+                            </div>
+                            ${messages.join('')}
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function buildImageRowHtml(upload) {
+            if (upload.status !== 'extracted') {
+                return '';
+            }
+
+            const registerImage = upload.registerImageUrl ? `
+                <div class="cropped-image-box">
+                    <div class="cropped-image-label">Register Number</div>
+                    <img src="${upload.registerImageUrl}" alt="Register" onclick="viewFullImage('${upload.registerImageUrl}', 'Register Number')">
+                </div>
+            ` : '';
+
+            const subjectImage = upload.subjectImageUrl ? `
+                <div class="cropped-image-box">
+                    <div class="cropped-image-label">Subject Code</div>
+                    <img src="${upload.subjectImageUrl}" alt="Subject" onclick="viewFullImage('${upload.subjectImageUrl}', 'Subject Code')">
+                </div>
+            ` : '';
+
+            const noImages = !registerImage && !subjectImage ? `
+                <p style="font-size: 12px; color: #7f8c8d;">No images were extracted.</p>
+            ` : '';
+
+            return `
+                <tr class="cropped-images-row" id="images-${upload.id}" style="display: none;">
+                    <td colspan="7">
+                        <div>
+                            <strong style="font-size: 12px; color: #1a3a52;">Extracted Data:</strong>
+                            <div class="cropped-images-grid">
+                                ${registerImage}
+                                ${subjectImage}
+                                ${noImages}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function buildMainRowHtml(upload) {
+            const state = determineStatusState(upload);
+            const config = STATUS_BADGE_MAP[state] || { text: (upload.status || 'STATUS').toUpperCase(), className: 'badge-secondary' };
+            return `
+                <tr class="upload-row" id="pdf-row-${upload.id}" data-pdf-id="${upload.id}">
+                    <td>-</td>
+                    <td>${upload.filename}</td>
+                    <td>${upload.registerNumber || '-'}</td>
+                    <td>${upload.subjectCode || '-'}</td>
+                    <td>${buildLmsUserHtml(upload)}</td>
+                    <td><span class="badge status-badge ${config.className}" id="status-badge-${upload.id}">${config.text}</span></td>
+                    <td>${buildActionButtonsHtml(upload)}</td>
+                </tr>
+            `;
+        }
+
+        function renderOrUpdateUploadRow(upload, insertIfMissing = false) {
+            const tbody = document.getElementById('uploadsTableBody');
+            if (!tbody) return;
+
+            const mainRowHtml = buildMainRowHtml(upload);
+            const errorRowHtml = buildErrorRowHtml(upload);
+            const imageRowHtml = buildImageRowHtml(upload);
+            const existingRow = document.getElementById(`pdf-row-${upload.id}`);
+
+            const removeDetailRows = () => {
+                const errorRow = document.getElementById(`error-${upload.id}`);
+                const imageRow = document.getElementById(`images-${upload.id}`);
+                if (errorRow) errorRow.remove();
+                if (imageRow) imageRow.remove();
+            };
+
+            const insertDetailRows = () => {
+                const mainRow = document.getElementById(`pdf-row-${upload.id}`);
+                if (!mainRow) return;
+                if (errorRowHtml) {
+                    mainRow.insertAdjacentHTML('afterend', errorRowHtml);
+                }
+                if (imageRowHtml) {
+                    const referenceRow = errorRowHtml ? document.getElementById(`error-${upload.id}`) : mainRow;
+                    if (referenceRow) {
+                        referenceRow.insertAdjacentHTML('afterend', imageRowHtml);
+                    }
+                }
+            };
+
+            if (existingRow) {
+                removeDetailRows();
+                existingRow.outerHTML = mainRowHtml;
+                insertDetailRows();
+            } else if (insertIfMissing) {
+                const emptyRow = document.getElementById('emptyUploadsRow');
+                if (emptyRow) emptyRow.remove();
+
+                const firstMainRow = tbody.querySelector('tr.upload-row');
+                if (firstMainRow) {
+                    firstMainRow.insertAdjacentHTML('beforebegin', mainRowHtml);
+                } else {
+                    tbody.insertAdjacentHTML('beforeend', mainRowHtml);
+                }
+                insertDetailRows();
+            }
+
+            updateSerialNumbers();
+            syncQueueStateForRow(upload.id);
+        }
+
+        function appendEmptyStateRow() {
+            const tbody = document.getElementById('uploadsTableBody');
+            if (!tbody) return;
+            if (document.getElementById('emptyUploadsRow')) return;
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr id="emptyUploadsRow">
+                    <td colspan="7" style="text-align: center; color: #95a5a6; padding: 25px; font-size: 14px;">
+                        No documents found for this filter.
+                    </td>
+                </tr>
+            `);
+        }
+
+        function removeUploadRow(pdfId) {
+            const mainRow = document.getElementById(`pdf-row-${pdfId}`);
+            if (mainRow) {
+                mainRow.remove();
+            }
+            const errorRow = document.getElementById(`error-${pdfId}`);
+            if (errorRow) errorRow.remove();
+            const imageRow = document.getElementById(`images-${pdfId}`);
+            if (imageRow) imageRow.remove();
+
+            updateSerialNumbers();
+
+            if (!document.querySelector('#uploadsTableBody tr.upload-row')) {
+                appendEmptyStateRow();
+            }
+        }
+
+        async function refreshUploadRow(pdfId, insertIfMissing = false) {
+            try {
+                const response = await fetch(`/api/status/${pdfId}/`);
+                const result = await response.json();
+                if (result.success && result.data) {
+                    renderOrUpdateUploadRow(result.data, insertIfMissing);
+                }
+            } catch (error) {
+                console.error('Unable to refresh upload row', error);
+            }
+        }
+
+        function updateSerialNumbers() {
+            const rows = document.querySelectorAll('#uploadsTableBody tr.upload-row');
+            rows.forEach((row, index) => {
+                const serialCell = row.querySelector('td');
+                if (serialCell) {
+                    serialCell.textContent = index + 1;
+                }
+            });
+        }
+
+        function adjustStatCounters({ totalDelta = 0, pendingDelta = 0, uploadedDelta = 0 } = {}) {
+            const updateValue = (elementId, delta) => {
+                if (!delta) return;
+                const el = document.getElementById(elementId);
+                if (!el) return;
+                const current = parseInt(el.textContent || '0', 10) || 0;
+                el.textContent = Math.max(0, current + delta);
+            };
+
+            updateValue('totalCountValue', totalDelta);
+            updateValue('pendingCountValue', pendingDelta);
+            updateValue('uploadedCountValue', uploadedDelta);
+        }
+
+        function syncQueueStateForRow(pdfId) {
+            if (typeof uploadQueue === 'undefined' || !Array.isArray(uploadQueue)) return;
+            const queueItem = uploadQueue.find(item => item.id === pdfId);
+            if (!queueItem) return;
+            const uploadBtn = document.getElementById(`upload-btn-${pdfId}`);
+            if (!uploadBtn) return;
+
+            if (queueItem.status === 'processing') {
+                uploadBtn.disabled = true;
+                uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+            } else if (queueItem.status === 'completed') {
+                uploadBtn.disabled = true;
+                uploadBtn.innerHTML = '<i class="fas fa-check"></i> Uploaded';
+            } else {
+                uploadBtn.disabled = true;
+                uploadBtn.innerHTML = '<i class="fas fa-clock"></i> Queued';
+            }
+        }
+
         // --- API Call Functions ---
 
         async function uploadFiles() {
@@ -1901,8 +2412,19 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('Uploaded successfully! Refreshing...', 'success');
-                    setTimeout(() => window.location.reload(), 1000);
+                    const uploadedFiles = result.files || [];
+                    for (const file of uploadedFiles) {
+                        await refreshUploadRow(file.id, true);
+                    }
+                    adjustStatCounters({
+                        totalDelta: uploadedFiles.length,
+                        pendingDelta: uploadedFiles.length
+                    });
+                    showAlert(result.message || 'Files uploaded successfully!', 'success');
+                    fileInput.value = '';
+                    document.getElementById('selectedFiles').innerHTML = '';
+                    uploadBtn.disabled = true;
+                    uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
                 } else {
                     showAlert(result.error, 'danger');
                     uploadBtn.disabled = false;
@@ -1925,8 +2447,8 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('Extraction complete! Refreshing...', 'success');
-                    setTimeout(() => window.location.reload(), 800);
+                    showAlert('Extraction complete!', 'success');
+                    await refreshUploadRow(pdfId);
                 } else {
                     showAlert(result.error, 'danger');
                     updateButtonState(btnId, false, '', '<i class="fas fa-cogs"></i> Extract');
@@ -1953,8 +2475,8 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('Re-extraction complete! Refreshing...', 'success');
-                    setTimeout(() => window.location.reload(), 800);
+                    showAlert('Re-extraction complete!', 'success');
+                    await refreshUploadRow(pdfId);
                 } else {
                     showAlert(result.error, 'danger');
                     updateButtonState(btnId, false, '', '<i class="fas fa-redo"></i> Re-extract');
@@ -1977,8 +2499,11 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    // Silently reload to update the UI without showing alerts
-                    window.location.reload();
+                    const typeMap = { success: 'success', warning: 'warning', error: 'danger' };
+                    showAlert(result.message, typeMap[result.messageType] || 'info');
+                    await refreshUploadRow(pdfId);
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
                 } else {
                     // Only show error if there's a technical error, not for missing configurations
                     if (!result.error.includes('not configured')) {
@@ -2017,6 +2542,7 @@
                 if (!alreadyInQueue) {
                     uploadQueue.push(newFile);
                     showAlert(`Added "${filename}" to upload queue (${uploadQueue.length} file${uploadQueue.length > 1 ? 's' : ''} total)`, 'info');
+                    setStatusBadgeState(pdfId, 'queued');
                 } else {
                     showAlert(`"${filename}" is already in the upload queue`, 'warning');
                     return;
@@ -2043,8 +2569,9 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('Uploaded to LMS! Refreshing...', 'success');
-                    setTimeout(() => window.location.reload(), 1000);
+                    showAlert('Uploaded to LMS!', 'success');
+                    await refreshUploadRow(pdfId);
+                    adjustStatCounters({ pendingDelta: -1, uploadedDelta: 1 });
                 } else {
                     showAlert(result.error, 'danger');
                     updateButtonState(btnId, false, '', '<i class="fas fa-check"></i> Upload');
@@ -2083,6 +2610,7 @@
                             // Disable the upload button and show queued state
                             uploadBtn.disabled = true;
                             uploadBtn.innerHTML = '<i class="fas fa-clock"></i> Queued';
+                            setStatusBadgeState(pdfId, 'queued');
                         }
                     }
                 }
@@ -2124,7 +2652,10 @@
                 // Remove from upload queue if present
                 const queueIndex = uploadQueue.findIndex(item => item.id === pdfId);
                 if (queueIndex !== -1) {
-                    uploadQueue.splice(queueIndex, 1);
+                    const [removedItem] = uploadQueue.splice(queueIndex, 1);
+                    if (removedItem && (removedItem.status === 'pending' || removedItem.status === 'processing')) {
+                        setStatusBadgeState(pdfId, 'ready');
+                    }
                     
                     // Adjust current index if needed
                     if (queueIndex < currentUploadIndex) {
@@ -2146,8 +2677,13 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showAlert('File deleted. Refreshing...', 'success');
-                    setTimeout(() => window.location.reload(), 500);
+                    const statusBadge = document.getElementById(`status-badge-${pdfId}`);
+                    const statusText = statusBadge ? (statusBadge.textContent || '').trim() : '';
+                    const uploadedDelta = statusText === 'UPLOADED' ? -1 : 0;
+                    const pendingDelta = statusText === 'UPLOADED' ? 0 : -1;
+                    adjustStatCounters({ totalDelta: -1, pendingDelta, uploadedDelta });
+                    removeUploadRow(pdfId);
+                    showAlert('File deleted.', 'success');
                 } else {
                     showAlert(result.error, 'danger');
                 }
@@ -2326,6 +2862,13 @@
                 }
             }
             
+            // Revert table status for pending items
+            uploadQueue.forEach(item => {
+                if (item.status === 'pending' || item.status === 'processing') {
+                    setStatusBadgeState(item.id, 'ready');
+                }
+            });
+
             // Reset all queue variables
             uploadQueue = [];
             currentUploadIndex = 0;
@@ -2341,9 +2884,13 @@
             updateQueueToggleButton();
             
             showAlert('Upload queue cleared', 'success');
-            
-            // Refresh the page to reset button states
-            setTimeout(() => window.location.reload(), 1000);
+
+            document.querySelectorAll('button[id^="upload-btn-"]').forEach(btn => {
+                if (btn.innerHTML.includes('Queued')) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Upload';
+                }
+            });
         }
 
         function closeQueuePanel() {
@@ -2396,6 +2943,83 @@
                 if (!panel.classList.contains('active')) {
                     toggleBtn.style.display = 'none';
                 }
+            }
+        }
+
+        // Upload Log Functions
+        let uploadLogs = [];
+        let uploadLogExpanded = false;
+
+        function toggleUploadLogs() {
+            const content = document.getElementById('uploadLogContent');
+            const icon = document.getElementById('uploadLogToggleIcon');
+            
+            uploadLogExpanded = !uploadLogExpanded;
+            
+            if (uploadLogExpanded) {
+                content.classList.add('expanded');
+                icon.classList.add('expanded');
+            } else {
+                content.classList.remove('expanded');
+                icon.classList.remove('expanded');
+            }
+        }
+
+        function addUploadLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = { timestamp, message, type };
+            uploadLogs.push(logEntry);
+            
+            const logBox = document.getElementById('uploadLogBox');
+            const logCount = document.getElementById('uploadLogCount');
+            
+            const entryDiv = document.createElement('div');
+            entryDiv.className = `upload-log-entry ${type}`;
+            entryDiv.innerHTML = `
+                <span class="upload-log-timestamp">[${timestamp}]</span>
+                <span>${message}</span>
+            `;
+            
+            logBox.appendChild(entryDiv);
+            logBox.scrollTop = logBox.scrollHeight;
+            
+            logCount.textContent = `${uploadLogs.length} log${uploadLogs.length !== 1 ? 's' : ''}`;
+        }
+
+        function clearUploadLogs() {
+            uploadLogs = [];
+            const logBox = document.getElementById('uploadLogBox');
+            const logCount = document.getElementById('uploadLogCount');
+            
+            logBox.innerHTML = '<div class="upload-log-entry info"><span class="upload-log-timestamp">[--:--:--]</span><span>Logs cleared</span></div>';
+            logCount.textContent = '0 logs';
+        }
+
+        let queueDetailsVisible = true;
+
+        function toggleQueueDetails() {
+            queueDetailsVisible = !queueDetailsVisible;
+            const sections = [
+                document.getElementById('queueProgressSection'),
+                document.querySelector('.queue-current-file'),
+                document.querySelector('.queue-list')
+            ];
+            const button = document.getElementById('queueHideBtn');
+            const icon = button.querySelector('i');
+            const label = button.querySelector('span');
+
+            sections.forEach(section => {
+                if (section) {
+                    section.style.display = queueDetailsVisible ? '' : 'none';
+                }
+            });
+
+            if (queueDetailsVisible) {
+                icon.className = 'fas fa-eye-slash';
+                label.textContent = 'Hide Progress';
+            } else {
+                icon.className = 'fas fa-eye';
+                label.textContent = 'Show Progress';
             }
         }
 
@@ -2477,6 +3101,7 @@
             
             isUploading = true;
             saveQueueToStorage();
+            clearUploadLogs();
             
             while (currentUploadIndex < uploadQueue.length) {
                 const currentFile = uploadQueue[currentUploadIndex];
@@ -2484,23 +3109,32 @@
                 // Mark as processing
                 currentFile.status = 'processing';
                 updateQueueUI();
+                setStatusBadgeState(currentFile.id, 'uploading');
                 
                 try {
                     // Upload the current file - this will wait for the browser to close
+                    addUploadLog(`Starting upload for: ${currentFile.filename}`, 'info');
                     document.getElementById('queueStatus').innerHTML = 
                         '<i class="fas fa-spinner fa-spin"></i><span>Browser opened, waiting for upload to complete...</span>';
+                    addUploadLog('Sending request to server...', 'info');
                     
                     const response = await fetch(`/api/upload-lms/${currentFile.id}/`, { method: 'POST' });
+                    addUploadLog('Server responded, processing result...', 'info');
                     const result = await response.json();
                     
                     if (result.success) {
                         // Mark as completed
                         currentFile.status = 'completed';
+                        setStatusBadgeState(currentFile.id, 'uploaded');
+                         adjustStatCounters({ pendingDelta: -1, uploadedDelta: 1 });
+                        addUploadLog(`✓ Upload successful for: ${currentFile.filename}`, 'success');
                         document.getElementById('queueStatus').innerHTML = 
                             '<i class="fas fa-check-circle" style="color: var(--success);"></i><span>Upload successful!</span>';
                     } else {
                         // Mark as failed
                         currentFile.status = 'failed';
+                        setStatusBadgeState(currentFile.id, 'failed');
+                        addUploadLog(`✗ Upload failed: ${result.error}`, 'error');
                         showAlert(`Error uploading ${currentFile.filename}: ${result.error}`, 'danger');
                         document.getElementById('queueStatus').innerHTML = 
                             '<i class="fas fa-times-circle" style="color: var(--danger);"></i><span>Upload failed!</span>';
@@ -2510,15 +3144,19 @@
                     currentUploadIndex++;
                     updateQueueUI();
                     saveQueueToStorage();
+                    addUploadLog(`Moving to next file (${currentUploadIndex + 1}/${uploadQueue.length})`, 'info');
                     
                     // Small delay before starting next upload
                     if (currentUploadIndex < uploadQueue.length) {
+                        addUploadLog('Waiting before next upload...', 'info');
                         await new Promise(resolve => setTimeout(resolve, 1000));
                     }
                     
                 } catch (error) {
                     // Mark as failed
                     currentFile.status = 'failed';
+                    setStatusBadgeState(currentFile.id, 'failed');
+                    addUploadLog(`✗ Exception occurred: ${error.message}`, 'error');
                     showAlert(`Error uploading ${currentFile.filename}: ${error.message}`, 'danger');
                     document.getElementById('queueStatus').innerHTML = 
                         '<i class="fas fa-times-circle" style="color: var(--danger);"></i><span>Error occurred!</span>';
@@ -2538,6 +3176,7 @@
             updateQueueToggleButton();
             
             // All uploads complete
+            addUploadLog('All uploads completed!', 'success');
             document.getElementById('queueProgressText').textContent = 'All uploads complete!';
             document.getElementById('queueProgressBar').style.width = '100%';
             document.getElementById('queueProgressBar').textContent = '100%';
@@ -2546,8 +3185,7 @@
                 '<i class="fas fa-check-circle" style="color: var(--success);"></i><span>All files uploaded successfully!</span>';
             
             clearQueueFromStorage();
-            showAlert('All uploads complete! Refreshing in 3 seconds...', 'success');
-            setTimeout(() => window.location.reload(), 3000);
+            showAlert('All uploads complete!', 'success');
         }
 
         // Add event listener for search input
