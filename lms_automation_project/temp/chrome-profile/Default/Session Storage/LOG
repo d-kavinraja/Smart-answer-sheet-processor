@@ -1,0 +1,16 @@
+2025/11/23-15:43:41.980 3a00 Reusing MANIFEST C:\Users\SEC\Downloads\Saveetha - B-tech AIML\ML_PROJECTS\Models\lms_automation_project-moodle-api\temp\chrome-profile\Default\Session Storage/MANIFEST-000001
+2025/11/23-15:43:41.982 3a00 Recovering log #60
+2025/11/23-15:43:41.984 3a00 Level-0 table #62: started
+2025/11/23-15:43:41.990 3a00 Level-0 table #62: 16230 bytes OK
+2025/11/23-15:43:41.999 3a00 Delete type=0 #60
+2025/11/23-15:43:41.999 7424 Compacting 4@0 + 1@1 files
+2025/11/23-15:43:42.019 7424 Generated table #64@0: 298 keys, 20775 bytes
+2025/11/23-15:43:42.019 7424 Compacted 4@0 + 1@1 files => 20775 bytes
+2025/11/23-15:43:42.021 7424 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/11/23-15:43:42.022 7424 Delete type=2 #51
+2025/11/23-15:43:42.022 7424 Delete type=2 #53
+2025/11/23-15:43:42.022 7424 Delete type=2 #56
+2025/11/23-15:43:42.022 7424 Delete type=2 #59
+2025/11/23-15:43:42.023 7424 Delete type=2 #62
+2025/11/23-15:45:08.700 ab4 Level-0 table #66: started
+2025/11/23-15:45:08.716 ab4 Level-0 table #66: 16227 bytes OK

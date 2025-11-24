@@ -385,6 +385,21 @@ class AnswerSheetExtractor:
                     return None
                 
                 image = Image.open(image_path).convert('L')
+                
+                # Enhance image for better digit recognition
+                try:
+                    image_np = np.array(image)
+                    # Normalize
+                    image_np = cv2.normalize(image_np, None, 0, 255, cv2.NORM_MINMAX)
+                    # Denoise
+                    image_np = cv2.fastNlMeansDenoising(image_np, None, 10, 7, 21)
+                    # Adaptive Thresholding
+                    image_np = cv2.adaptiveThreshold(image_np, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                                    cv2.THRESH_BINARY, 11, 2)
+                    image = Image.fromarray(image_np)
+                except Exception as e:
+                    debug_print(f"Image enhancement failed, using raw image: {e}")
+
                 image_tensor = self.register_transform(image).unsqueeze(0).to(self.device)
                 
                 with torch.no_grad():
@@ -402,6 +417,7 @@ class AnswerSheetExtractor:
                     extracted = ''.join(map(str, result))
                     debug_print(f"Extracted register number: {extracted}")
                     
+                    # Relaxed validation - accept if at least 8 digits
                     if extracted and len(extracted) >= 8 and extracted.isdigit():
                         return extracted
                     else:

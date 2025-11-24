@@ -8,17 +8,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         :root {
-            --primary: #1a73e8;
-            --primary-dark: #1557b0;
-            --secondary: #5f6368;
-            --success: #0f9d58;
-            --warning: #f4b400;
-            --danger: #d93025;
-            --light: #f8f9fa;
-            --dark: #202124;
-            --border: #dadce0;
-            --shadow: 0 2px 6px rgba(60, 64, 67, 0.15);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Modern Color Palette */
+            --primary: #2563eb; /* Royal Blue */
+            --primary-dark: #1e40af;
+            --primary-light: #eff6ff;
+            --secondary: #64748b; /* Slate */
+            --success: #10b981; /* Emerald */
+            --success-light: #ecfdf5;
+            --warning: #f59e0b; /* Amber */
+            --warning-light: #fffbeb;
+            --danger: #ef4444; /* Red */
+            --danger-light: #fef2f2;
+            --info: #3b82f6;
+            --info-light: #eff6ff;
+            
+            /* Neutrals */
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            
+            /* Effects */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -28,28 +51,31 @@
         }
 
         body {  
-            font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            letter-spacing: 0.01em;
+            font-family: 'Inter', 'Google Sans', 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* ===== HEADER ===== */
         header {
-            background: linear-gradient(to right, #ffffff, #f8f9fa);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-sm);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 16px 0;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
         }
 
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -58,113 +84,130 @@
         .logo-section {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 1.5rem;
         }
 
         .logo-img {
-            height: 52px;
+            height: 48px;
+            width: auto;
             object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-img:hover {
-            transform: scale(1.05);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
         }
 
         .header-text {
             display: flex;
             flex-direction: column;
+            justify-content: center;
         }
 
         .header-page {
-            font-size: 12px;
-            color: #7f8c8d;
+            font-size: 0.75rem;
+            color: var(--primary);
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.125rem;
         }
 
         .header-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a3a52;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+            line-height: 1.2;
         }
 
         .header-subtitle {
-            font-size: 14px;
-            color: #95a5a6;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .quick-stats {
             display: flex;
-            gap: 24px;
+            gap: 1.5rem;
+            align-items: center;
         }
 
         .quick-stat {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: #ffffff;
-            padding: 12px 16px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.3s ease;
+            gap: 1rem;
+            background: var(--bg-surface);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
         }
 
         .quick-stat:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
 
         .quick-stat-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f8f9fa;
-            border-radius: 50%;
-            color: #1a73e8;
-            font-size: 18px;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .quick-stat-info {
+            display: flex;
+            flex-direction: column;
         }
 
         .quick-stat-value {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a3a52;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
         }
 
         .quick-stat-label {
-            font-size: 12px;
-            color: #7f8c8d;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* ===== MAIN CONTENT ===== */
         .container {
-            max-width: 1600px;
-            margin: 20px auto;
-            padding: 0 20px;
+            max-width: 1440px;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
         /* Upload Section */
         .upload-section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            border: 1px solid #e0e0e0;
+            background: var(--bg-surface);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
         .upload-section h3 {
-            color: #1a3a52;
-            margin-bottom: 15px;
-            font-size: 16px;
-            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .upload-controls {
             display: flex;
-            gap: 12px;
+            gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -176,61 +219,52 @@
         .file-label {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: #2c5aa0;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
             color: white;
-            border-radius: 5px;
+            border-radius: var(--radius-md);
             cursor: pointer;
             font-weight: 600;
-            font-size: 13px;
-            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
         }
 
         .file-label:hover {
-            background: #1a3a52;
-            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.3);
+            background: var(--primary-dark);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             border: 1px solid var(--border);
-            background: white;
-            color: var(--secondary);
-            border-radius: 8px;
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 0.875rem;
+            font-weight: 600;
             transition: var(--transition);
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
             position: relative;
             overflow: hidden;
         }
 
-        .btn::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: currentColor;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
         .btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            border-color: var(--text-muted);
+            color: var(--text-main);
             transform: translateY(-1px);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
+            background: var(--bg-body);
         }
 
         .btn:active {
-            transform: translateY(1px);
+            transform: translateY(0);
         }
 
         .btn-primary {
@@ -243,18 +277,21 @@
             background: var(--primary-dark);
             border-color: var(--primary-dark);
             color: white;
-            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-success {
-            background: #27ae60;
+            background: var(--success);
             color: white;
-            border-color: #27ae60;
+            border-color: var(--success);
         }
 
         .btn-success:hover {
-            background: #2ecc71;
-            border-color: #2ecc71;
+            background: #059669;
+            border-color: #059669;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
             color: white;
             box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
         }
@@ -276,34 +313,34 @@
         /* Search Box */
         .search-box {
             position: relative;
-            margin-bottom: 20px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
         }
 
         .search-box:focus-within {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+            box-shadow: 0 0 0 3px var(--primary-light);
         }
 
         .search-icon {
             position: absolute;
-            left: 16px;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: #7f8c8d;
-            font-size: 14px;
+            color: var(--text-muted);
+            font-size: 1rem;
         }
 
         #searchInput {
             width: 100%;
-            padding: 12px 40px 12px 42px;
+            padding: 0.75rem 2.5rem 0.75rem 2.75rem;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #34495e;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--text-main);
             background: transparent;
         }
 
@@ -313,94 +350,99 @@
 
         .search-clear {
             position: absolute;
-            right: 12px;
+            right: 0.75rem;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #7f8c8d;
+            color: var(--text-muted);
             cursor: pointer;
-            padding: 4px;
+            padding: 0.25rem;
             border-radius: 50%;
             display: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .search-clear:hover {
-            background: #f8f9fa;
-            color: #34495e;
+            background: var(--bg-body);
+            color: var(--text-main);
         }
 
         /* Filter Tabs */
         .filter-tabs {
             display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: none;
+            padding: 0.25rem;
+            background: var(--bg-body);
+            border-radius: var(--radius-lg);
+            width: fit-content;
         }
 
         .filter-btn {
-            padding: 10px 20px;
+            padding: 0.5rem 1rem;
             border: none;
-            border-bottom: 3px solid transparent;
-            background: none;
-            color: #7f8c8d;
-            border-radius: 0;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.875rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            margin-bottom: -2px;
+            transition: var(--transition);
+            margin-bottom: 0;
         }
 
         .filter-btn:hover {
-            color: #34495e;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .filter-btn.active {
-            color: #2c5aa0;
-            border-bottom-color: #2c5aa0;
+            color: var(--primary);
+            background: var(--bg-surface);
+            box-shadow: var(--shadow-sm);
         }
 
         /* Table */
         .table-wrapper {
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
             overflow: hidden;
             border: 1px solid var(--border);
-            margin-bottom: 24px;
+            margin-bottom: 2rem;
             transition: var(--transition);
         }
 
         .table-wrapper:hover {
-            box-shadow: 0 6px 16px rgba(60, 64, 67, 0.2);
+            box-shadow: var(--shadow-lg);
         }
 
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            font-size: 14px;
+            font-size: 0.875rem;
         }
 
         thead {
-            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+            background: var(--bg-body);
             position: sticky;
             top: 0;
             z-index: 10;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            box-shadow: var(--shadow-sm);
         }
 
         th {
-            padding: 18px 16px;
+            padding: 1rem 1.5rem;
             text-align: left;
             font-weight: 600;
-            color: var(--primary);
-            font-size: 13px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            border-bottom: 2px solid var(--border);
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
             position: relative;
             transition: var(--transition);
             background: transparent;
@@ -435,32 +477,17 @@
         }
 
         /* Header hover effects */
-        th::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        th:hover::after {
-            transform: scaleX(1);
-        }
-
         th:hover {
-            color: var(--primary-dark);
+            color: var(--primary);
+            background: rgba(0,0,0,0.02);
         }
 
         /* Add icons to headers */
         th::before {
             font-family: 'Font Awesome 5 Free';
-            margin-right: 8px;
-            font-size: 12px;
-            opacity: 0.8;
+            margin-right: 0.5rem;
+            font-size: 0.75rem;
+            opacity: 0.6;
             display: inline-block;
             width: 14px;
         }
@@ -474,34 +501,35 @@
         th:nth-child(7)::before { content: '\f141'; } /* Actions */
 
         td {
-            padding: 16px;
+            padding: 1rem 1.5rem;
             border-bottom: 1px solid var(--border);
             vertical-align: middle;
             transition: var(--transition);
+            color: var(--text-main);
         }
 
         /* Separator between headers */
         th:not(:last-child) {
-            border-right: 1px solid rgba(224, 224, 224, 0.4);
+            border-right: 1px solid transparent;
         }
 
         tbody tr:last-child td {
             border-bottom: none;
         }
 
-        tbody tr:hover {
-            background: #fdfdfd;
+        tbody tr:hover td {
+            background: var(--bg-body);
         }
 
         /* Status Badges */
         .badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
             white-space: nowrap;
             letter-spacing: 0.02em;
             transition: var(--transition);
@@ -519,221 +547,254 @@
 
         .badge:hover {
             transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
         }
 
         .badge-success {
-            background: #e6f4ea;
+            background: var(--success-light);
             color: var(--success);
-            border-color: #ceead6;
+            border-color: transparent;
         }
 
         .badge-warning {
-            background: #fef7e0;
+            background: var(--warning-light);
             color: var(--warning);
-            border-color: #fde293;
+            border-color: transparent;
         }
 
         .badge-danger {
-            background: #fce8e6;
+            background: var(--danger-light);
             color: var(--danger);
-            border-color: #f6cac7;
+            border-color: transparent;
         }
 
         .badge-info {
-            background: #e8f0fe;
-            color: var(--primary);
-            border-color: #d2e3fc;
+            background: var(--info-light);
+            color: var(--info);
+            border-color: transparent;
         }
 
         .badge-primary {
-            background: #e3f2fd;
-            color: #1967d2;
-            border-color: #90caf9;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: transparent;
         }
 
         .badge-secondary {
-            background: #f1f3f4;
-            color: var(--secondary);
+            background: var(--bg-body);
+            color: var(--text-secondary);
             border-color: var(--border);
         }
 
         /* Error Message */
         .error-message {
-            background: #fbebee;
-            color: #c0392b;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 12px;
-            margin-top: 8px;
-            border-left: 4px solid #e74c3c;
+            background: var(--danger-light);
+            color: var(--danger);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            border-left: 3px solid var(--danger);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
         .error-icon {
-            color: #e74c3c;
-            font-size: 14px;
+            color: var(--danger);
+            font-size: 0.875rem;
         }
 
         /* Cropped Images Row */
         .cropped-images-row td {
-            background: #fdfdfd;
-            padding: 15px;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
+            background: var(--bg-body);
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
         .cropped-images-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
+            gap: 1rem;
+            margin-top: 0.5rem;
         }
 
         .cropped-image-box {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 10px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
         
         .cropped-image-box:hover {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            border-color: #bdc3c7;
+            box-shadow: var(--shadow-md);
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
         }
 
         .cropped-image-label {
             font-weight: 600;
-            color: #1a3a52;
-            font-size: 11px;
-            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.05em;
         }
 
         .cropped-image-box img {
             max-width: 100%;
             max-height: 100px;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            object-fit: contain;
         }
 
         .cropped-image-box img:hover {
             transform: scale(1.05);
         }
 
+        /* View Images Button */
+        .view-images-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--info-light);
+            color: var(--info);
+            border: 1px solid var(--info);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin: 0.5rem 0;
+        }
+
+        .view-images-btn:hover {
+            background: var(--info);
+            color: white;
+        }
+
         /* Action Buttons */
         .action-buttons {
             display: flex;
-            gap: 6px;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
 
         .action-btn {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            padding: 6px 10px;
-            font-size: 11px;
-            border: 1px solid #bdc3c7;
-            background: white;
-            color: #34495e;
-            border-radius: 4px;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             white-space: nowrap;
         }
 
         .action-btn i {
-            font-size: 10px;
+            font-size: 0.75rem;
         }
 
         .action-btn:hover {
-            border-color: #2c5aa0;
-            color: #2c5aa0;
-            background: #f9f9f9;
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
         }
 
         .action-btn-danger:hover {
-            border-color: #e74c3c;
-            color: #e74c3c;
-            background: #fbebee;
+            border-color: var(--danger);
+            color: var(--danger);
+            background: var(--danger-light);
         }
 
         .action-btn-success {
-            border-color: #27ae60;
-            color: #27ae60;
+            border-color: var(--success);
+            color: var(--success);
+            background: var(--success-light);
         }
 
         .action-btn-success:hover {
-            background: #e6f7ec;
-            color: #27ae60;
-            border-color: #27ae60;
+            background: #d1fae5;
+            color: #059669;
+            border-color: #059669;
         }
 
         .action-btn-warning {
-            border-color: #f39c12;
-            color: #f39c12;
+            border-color: var(--warning);
+            color: var(--warning);
+            background: var(--warning-light);
         }
 
         .action-btn-warning:hover {
-            background: #fff9e6;
-            color: #f39c12;
-            border-color: #f39c12;
+            background: #fef3c7;
+            color: #d97706;
+            border-color: #d97706;
         }
 
         .action-btn:disabled {
-            background: #ecf0f1;
-            color: #bdc3c7;
-            border-color: #ecf0f1;
+            background: var(--bg-body);
+            color: var(--text-muted);
+            border-color: var(--border);
             cursor: not-allowed;
         }
 
         /* Alert */
         .alert {
-            padding: 12px 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            border-left: 4px solid #ddd;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            border-left: 4px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: var(--shadow-sm);
         }
         .alert-close {
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: bold;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+        .alert-close:hover {
+            opacity: 1;
         }
 
         .alert-success {
-            background: #e6f7ec;
-            border-left-color: #27ae60;
-            color: #165932;
+            background: var(--success-light);
+            border-left-color: var(--success);
+            color: #065f46;
         }
 
         .alert-danger {
-            background: #fbebee;
-            border-left-color: #e74c3c;
-            color: #721c24;
+            background: var(--danger-light);
+            border-left-color: var(--danger);
+            color: #991b1b;
         }
 
         .alert-warning {
-            background: #fff9e6;
-            border-left-color: #f39c12;
-            color: #856404;
+            background: var(--warning-light);
+            border-left-color: var(--warning);
+            color: #92400e;
         }
 
         .alert-info {
-            background: #eaf8fe;
-            border-left-color: #3498db;
-            color: #0c5460;
+            background: var(--info-light);
+            border-left-color: var(--info);
+            color: #1e40af;
         }
 
         /* Modal */
@@ -745,8 +806,9 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(32, 33, 36, 0.6);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -759,18 +821,17 @@
         }
 
         .modal-content {
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
+            background: var(--bg-surface);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
             max-width: 90%;
             max-height: 90vh;
             overflow: auto;
             position: relative;
-            box-shadow: 0 24px 38px rgba(60, 64, 67, 0.14), 
-                      0 9px 46px rgba(60, 64, 67, 0.12), 
-                      0 11px 15px rgba(60, 64, 67, 0.2);
-            transform: scale(0.9);
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
         }
 
         .modal.show .modal-content {
@@ -779,23 +840,31 @@
 
         .modal-close {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: #95a5a6;
-            transition: all 0.3s ease;
+            color: var(--text-muted);
+            transition: var(--transition);
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .modal-close:hover {
-            color: #34495e;
+            color: var(--text-main);
+            background: var(--bg-body);
             transform: rotate(90deg);
         }
 
         .modal img {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
         }
         
         /* Confirmation Modal */
@@ -804,54 +873,62 @@
             text-align: center;
         }
         .modal-confirm h4 {
-            font-size: 18px;
-            color: #1a3a52;
-            margin-bottom: 10px;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
         }
         .modal-confirm p {
-            font-size: 14px;
-            color: #34495e;
-            margin-bottom: 20px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
         }
         .confirm-buttons {
             display: flex;
-            gap: 10px;
+            gap: 0.75rem;
             justify-content: center;
         }
         .confirm-buttons .btn {
             min-width: 100px;
+            justify-content: center;
         }
         .btn-danger {
-            background: #e74c3c;
+            background: var(--danger);
             color: white;
-            border-color: #e74c3c;
+            border-color: var(--danger);
         }
         .btn-danger:hover {
-            background: #c0392b;
-            border-color: #c0392b;
+            background: #dc2626;
+            border-color: #dc2626;
             color: white;
+            box-shadow: var(--shadow-md);
         }
 
         /* Error Details Row */
         .error-details-row td {
-            background: #fbf3f3;
-            padding: 15px;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
+            background: var(--danger-light);
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
         .error-details-content {
-            font-size: 12px;
-            color: #34495e;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+            background: rgba(255,255,255,0.5);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
         }
 
         .error-details-title {
             font-weight: 700;
-            color: #c0392b;
-            margin-bottom: 10px;
+            color: var(--danger);
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
+            font-size: 0.875rem;
         }
 
         /* Serial Number Column */
@@ -1507,50 +1584,346 @@
             }
         }
 
+        .stats-toggle-btn {
+            display: none;
+        }
+
         @media (max-width: 768px) {
-            body {
-                font-size: 14px;
+            .stats-toggle-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+                background: var(--bg-surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                color: var(--primary);
+                font-size: 0.875rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: var(--transition);
+                margin-bottom: 0.5rem;
             }
+
+            .stats-toggle-btn:hover {
+                background: var(--primary-light);
+            }
+
+            /* Header */
+            header {
+                padding: 1rem 0;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1.25rem;
+                align-items: center;
+                padding: 0 1.25rem;
+            }
+
+            .logo-section {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .header-text {
+                align-items: center;
+            }
+
+            .quick-stats {
+                display: none; /* Hidden by default on mobile */
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+                width: 100%;
+                animation: slideDown 0.3s ease-out;
+            }
+
+            .quick-stats.show {
+                display: grid;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .quick-stat {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 0.75rem 0.5rem;
+                gap: 0.5rem;
+            }
+
+            .quick-stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            .quick-stat-info {
+                align-items: center;
+            }
+
+            .quick-stat-value {
+                font-size: 1rem;
+            }
+
+            .quick-stat-label {
+                font-size: 0.65rem;
+            }
+
+            /* Main Content */
             .container {
-                padding: 0 10px;
-                margin-top: 15px;
+                padding: 0 1rem;
+                margin: 1.5rem auto;
             }
-            
+
+            /* Upload Section */
+            .upload-section {
+                padding: 1.25rem;
+            }
+
             .upload-controls {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 0.75rem;
             }
-            .btn, .file-label {
+
+            .file-label, .btn {
+                width: 100%;
                 justify-content: center;
             }
-            #selectedFiles {
-                text-align: center;
-                margin-top: 10px;
+
+            /* Search & Filter */
+            .search-box {
+                margin-bottom: 1rem;
             }
-            
+
             .filter-tabs {
-                gap: 0;
-            }
-            .filter-btn {
-                flex: 1;
-                padding: 10px 5px;
-                font-size: 12px;
-            }
-
-            .table-wrapper {
+                width: 100%;
                 overflow-x: auto;
-            }
-            table {
-                font-size: 12px;
-                min-width: 600px;
+                padding-bottom: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
             }
 
-            th, td {
-                padding: 10px 8px;
+            .filter-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 0.5rem 1rem;
+            }
+
+            /* Table - Card View */
+            .table-wrapper {
+                background: transparent;
+                box-shadow: none;
+                border: none;
+                overflow: visible;
+                margin-bottom: 5rem; /* Space for queue panel */
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                background: var(--bg-surface);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-sm);
+                margin-bottom: 1rem;
+                border: 1px solid var(--border);
+                padding: 1.25rem;
+                position: relative;
+            }
+
+            tbody tr:hover {
+                transform: none;
+                box-shadow: var(--shadow-md);
+            }
+
+            td {
+                padding: 0.5rem 0;
+                border: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+                font-size: 0.875rem;
+            }
+
+            /* Add labels for card view */
+            td:nth-of-type(3)::before { content: "Reg. No"; font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; }
+            td:nth-of-type(4)::before { content: "Subject"; font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; }
+            td:nth-of-type(5)::before { content: "LMS User"; font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; }
+            td:nth-of-type(6)::before { content: "Status"; font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; }
+
+            /* Hide S.No */
+            td:first-child {
+                display: none;
+            }
+
+            /* File Name styling */
+            td:nth-child(2) {
+                font-weight: 700;
+                color: var(--primary);
+                font-size: 1rem;
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 0.75rem;
+                margin-bottom: 0.75rem;
+                display: block;
+                text-align: left;
+            }
+
+            /* Actions styling */
+            td:last-child {
+                border-top: 1px solid var(--border);
+                padding-top: 1rem;
+                margin-top: 0.5rem;
+                justify-content: flex-end;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            /* Cropped Images Row - Mobile Card View */
+            .cropped-images-row {
+                display: none !important;
+            }
+
+            .cropped-images-row[style*="display: table-row"],
+            .cropped-images-row[style*="display: block"] {
+                display: block !important;
+                background: var(--bg-body);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-sm);
+                margin-bottom: 1rem;
+                border: 1px solid var(--border);
+                padding: 1rem;
+            }
+
+            .cropped-images-row td {
+                display: block !important;
+                padding: 0 !important;
+                border: none !important;
+            }
+
+            .cropped-images-row td::before {
+                display: none !important;
+            }
+
+            /* Error Details Row - Mobile Card View */
+            .error-details-row {
+                display: none !important;
+            }
+
+            .error-details-row[style*="display: table-row"],
+            .error-details-row[style*="display: block"] {
+                display: block !important;
+                background: var(--danger-light);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-sm);
+                margin-bottom: 1rem;
+                border: 1px solid var(--danger);
+                padding: 1rem;
+            }
+
+            .error-details-row td {
+                display: block !important;
+                padding: 0 !important;
+                border: none !important;
+            }
+
+            .error-details-row td::before {
+                display: none !important;
+            }
+
+            .error-details-content {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            .error-details-title {
+                font-size: 0.8rem;
+            }
+
+            /* Queue Panel */
+            .upload-queue-panel {
+                width: 100%;
+                right: 0;
+                bottom: 0;
+                border-radius: 16px 16px 0 0;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                max-height: 70vh;
+                overflow-y: auto;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.25rem;
+            }
+
+            .quick-stats {
+                grid-template-columns: 1fr; /* Stack stats on very small screens */
+            }
+
+            .modal-content {
+                padding: 1.25rem;
+                width: 95%;
             }
 
             .cropped-images-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .cropped-image-box {
+                padding: 0.5rem;
+            }
+
+            .cropped-image-box img {
+                max-height: 200px;
+            }
+
+            .cropped-image-label {
+                font-size: 0.75rem;
+            }
+
+            /* Make images modal full screen on mobile */
+            .modal-content {
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                padding: 1rem;
+            }
+
+            .modal img {
+                max-height: 90vh;
+                width: auto;
+                margin: 0 auto;
+                display: block;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -1568,7 +1941,11 @@
                 </div>
             </div>
 
-            <div class="quick-stats">
+            <button class="stats-toggle-btn" onclick="toggleStats()">
+                <i class="fas fa-chart-bar"></i> Show Stats
+            </button>
+
+            <div class="quick-stats" id="quickStats">
                 <div class="quick-stat" title="Total documents">
                     <div class="quick-stat-icon"><i class="fas fa-layer-group"></i></div>
                     <div>
@@ -1600,6 +1977,7 @@
         <div class="upload-section">
             <h3>Upload Answer Sheet PDFs</h3>
             <div class="upload-controls">
+                {% csrf_token %}
                 <input type="file" id="pdfFiles" multiple accept=".pdf">
                 <label for="pdfFiles" class="file-label">
                     <i class="fas fa-file-pdf"></i> Choose PDF Files
@@ -1825,6 +2203,9 @@
         
         <div class="queue-progress" id="queueProgressSection">
             <div class="queue-progress-text" id="queueProgressText">Processing file 1 of 3...</div>
+            <div class="queue-progress-files" id="queueProgressFiles" style="font-size: 11px; color: var(--secondary); margin-top: 4px; margin-bottom: 8px;">
+                <!-- File list will be dynamically inserted here -->
+            </div>
             <div class="queue-progress-bar-container">
                 <div class="queue-progress-bar" id="queueProgressBar" style="width: 33%;">33%</div>
             </div>
@@ -2333,7 +2714,10 @@
 
         async function refreshUploadRow(pdfId, insertIfMissing = false) {
             try {
-                const response = await fetch(`/api/status/${pdfId}/`);
+                const response = await fetch(`${window.location.origin}/api/status/${pdfId}/`, {
+                    headers: { 'ngrok-skip-browser-warning': 'true' },
+                    credentials: 'same-origin'
+                });
                 const result = await response.json();
                 if (result.success && result.data) {
                     renderOrUpdateUploadRow(result.data, insertIfMissing);
@@ -2405,10 +2789,35 @@
             uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
             try {
-                const response = await fetch('/api/upload/', {
+                // Get CSRF token from multiple sources
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+                                 document.querySelector('input[name=csrfmiddlewaretoken]')?.value ||
+                                 getCookie('csrftoken');
+                
+                if (!csrfToken) {
+                    console.error('CSRF token not found');
+                    showAlert('Security token missing. Please refresh the page.', 'danger');
+                    uploadBtn.disabled = false;
+                    uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
+                    return;
+                }
+                
+                const uploadUrl = `${window.location.origin}/api/upload/`;
+                
+                const response = await fetch(uploadUrl, {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    body: formData,
+                    credentials: 'same-origin'
                 });
+                
+                if (!response.ok) {
+                    throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                }
+                
                 const result = await response.json();
 
                 if (result.success) {
@@ -2431,7 +2840,16 @@
                     uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
                 }
             } catch (error) {
-                showAlert('Error: ' + error.message, 'danger');
+                console.error('Upload error:', error);
+                let errorMsg = 'Failed to upload. ';
+                if (error.message.includes('Failed to fetch') || error.name === 'TypeError') {
+                    errorMsg = 'Network error. Please check your connection and ensure the server is running.';
+                } else if (error.message.includes('Server returned')) {
+                    errorMsg = `Server error: ${error.message}`;
+                } else {
+                    errorMsg += error.message;
+                }
+                showAlert(errorMsg, 'danger');
                 uploadBtn.disabled = false;
                 uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Files';
             }
@@ -2443,7 +2861,15 @@
             showAlert('Extracting data... This may take a moment.', 'info');
             
             try {
-                const response = await fetch(`/api/process/${pdfId}/`, { method: 'POST' });
+                const csrfToken = getCookie('csrftoken');
+                const response = await fetch(`${window.location.origin}/api/process/${pdfId}/`, { 
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    credentials: 'same-origin'
+                });
                 const result = await response.json();
 
                 if (result.success) {
@@ -2471,7 +2897,15 @@
             showAlert('Re-extracting data...', 'info');
             
             try {
-                const response = await fetch(`/api/process/${pdfId}/`, { method: 'POST' });
+                const csrfToken = getCookie('csrftoken');
+                const response = await fetch(`${window.location.origin}/api/process/${pdfId}/`, { 
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    credentials: 'same-origin'
+                });
                 const result = await response.json();
 
                 if (result.success) {
@@ -2495,7 +2929,15 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking';
 
             try {
-                const response = await fetch(`/api/recheck/${pdfId}/`, { method: 'POST' });
+                const csrfToken = getCookie('csrftoken');
+                const response = await fetch(`${window.location.origin}/api/recheck/${pdfId}/`, { 
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'ngrok-skip-browser-warning': 'true'
+                    },
+                    credentials: 'same-origin'
+                });
                 const result = await response.json();
                 
                 if (result.success) {
@@ -2558,28 +3000,6 @@
                     processUploadQueue();
                 }
             }, 'btn-success');
-        }
-        async function uploadToLMS(pdfId) {
-            const btnId = `upload-btn-${pdfId}`;
-            updateButtonState(btnId, true, 'Uploading...', '<i class="fas fa-check"></i> Upload');
-            showAlert('Uploading to LMS... Please wait.', 'info');
-            
-            try {
-                const response = await fetch(`/api/upload-lms/${pdfId}/`, { method: 'POST' });
-                const result = await response.json();
-
-                if (result.success) {
-                    showAlert('Uploaded to LMS!', 'success');
-                    await refreshUploadRow(pdfId);
-                    adjustStatCounters({ pendingDelta: -1, uploadedDelta: 1 });
-                } else {
-                    showAlert(result.error, 'danger');
-                    updateButtonState(btnId, false, '', '<i class="fas fa-check"></i> Upload');
-                }
-            } catch (error) {
-                showAlert('Error: ' + error.message, 'danger');
-                updateButtonState(btnId, false, '', '<i class="fas fa-check"></i> Upload');
-            }
         }
 
         function onUploadAllExtracted() {
@@ -2787,7 +3207,7 @@
         let isUploading = false;
 
         // Load queue from localStorage on page load
-        function loadQueueFromStorage() {
+        async function loadQueueFromStorage() {
             try {
                 const savedQueue = localStorage.getItem('uploadQueue');
                 const savedIndex = localStorage.getItem('currentUploadIndex');
@@ -2799,15 +3219,102 @@
                     isUploading = savedIsUploading === 'true';
                     
                     if (uploadQueue.length > 0) {
+                        // On reload, sync all files with server to get their actual status
+                        if (isUploading && currentUploadIndex < uploadQueue.length) {
+                            // Only check the current file and files before it
+                            const statusPromises = [];
+                            for (let i = 0; i <= currentUploadIndex && i < uploadQueue.length; i++) {
+                                const item = uploadQueue[i];
+                                statusPromises.push(
+                                    fetch(`${window.location.origin}/api/status/${item.id}/`, {
+                                        headers: { 'ngrok-skip-browser-warning': 'true' },
+                                        credentials: 'same-origin'
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => ({ index: i, item, data }))
+                                        .catch(error => ({ index: i, item, error }))
+                                );
+                            }
+                            
+                            // Wait for all status checks to complete
+                            const results = await Promise.all(statusPromises);
+                            
+                            // Update statuses based on results
+                            let foundUploading = false;
+                            for (const result of results) {
+                                if (result.error) {
+                                    console.error(`Error fetching status for ${result.item.id}:`, result.error);
+                                    continue;
+                                }
+                                
+                                if (result.data.success) {
+                                    const serverStatus = result.data.data.status;
+                                    
+                                    // Update status based on server state
+                                    if (serverStatus === 'uploaded') {
+                                        result.item.status = 'completed';
+                                    } else if (serverStatus === 'failed') {
+                                        result.item.status = 'failed';
+                                    } else if (serverStatus === 'uploading') {
+                                        // Mark this item to be polled for completion
+                                        result.item.status = 'processing';
+                                        result.item.was_uploading = true;
+                                        foundUploading = true;
+                                        // Update currentUploadIndex to this file
+                                        currentUploadIndex = result.index;
+                                    } else if (serverStatus === 'pending' || serverStatus === 'ready') {
+                                        // Not yet uploaded - keep it as queued if it's in the queue
+                                        if (result.item.status === 'queued' || result.item.status === 'processing') {
+                                            result.item.status = 'queued';
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // Ensure files after currentUploadIndex stay as queued
+                            for (let i = currentUploadIndex + 1; i < uploadQueue.length; i++) {
+                                if (uploadQueue[i].status !== 'completed' && uploadQueue[i].status !== 'failed') {
+                                    uploadQueue[i].status = 'queued';
+                                }
+                            }
+                            
+                            // If no file is currently uploading on server, find the next pending file
+                            if (!foundUploading) {
+                                for (let i = 0; i < uploadQueue.length; i++) {
+                                    if (uploadQueue[i].status !== 'completed' && uploadQueue[i].status !== 'failed') {
+                                        currentUploadIndex = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // Save the synced state
+                            saveQueueToStorage();
+                        }
+
                         updateQueueToggleButton();
+                        loadQueueDetailsVisibility();
+                        
+                        // Sync all queue items' badges to show correct status
+                        uploadQueue.forEach(item => {
+                            syncQueueStateForRow(item.id);
+                        });
                         
                         if (isUploading) {
                             showQueuePanel();
-                            updateQueueUI();
+                            // Delay updateQueueUI slightly to ensure DOM is ready
+                            setTimeout(() => {
+                                updateQueueUI(); // This will show the correct file count and current file
+                            }, 100);
                             // Resume upload if it was in progress
                             if (currentUploadIndex < uploadQueue.length) {
                                 processUploadQueue();
                             }
+                        } else if (uploadQueue.length > 0) {
+                            // Even if not uploading, update UI to show queue state
+                            setTimeout(() => {
+                                updateQueueUI();
+                            }, 100);
                         }
                     }
                 }
@@ -2894,12 +3401,7 @@
         }
 
         function closeQueuePanel() {
-            if (isUploading) {
-                if (!confirm('Upload is in progress. Are you sure you want to close the panel? The upload will continue in the background.')) {
-                    return;
-                }
-            }
-            
+            // Allow closing without warning - upload continues in background
             const panel = document.getElementById('uploadQueuePanel');
             const toggleBtn = document.getElementById('queueToggleBtn');
             const toggleIcon = document.getElementById('queueToggleIcon');
@@ -2999,14 +3501,27 @@
 
         function toggleQueueDetails() {
             queueDetailsVisible = !queueDetailsVisible;
+            localStorage.setItem('queueDetailsVisible', queueDetailsVisible.toString());
+            applyQueueDetailsVisibility();
+        }
+        
+        function loadQueueDetailsVisibility() {
+            const saved = localStorage.getItem('queueDetailsVisible');
+            if (saved !== null) {
+                queueDetailsVisible = saved === 'true';
+            }
+            applyQueueDetailsVisibility();
+        }
+        
+        function applyQueueDetailsVisibility() {
             const sections = [
                 document.getElementById('queueProgressSection'),
                 document.querySelector('.queue-current-file'),
                 document.querySelector('.queue-list')
             ];
             const button = document.getElementById('queueHideBtn');
-            const icon = button.querySelector('i');
-            const label = button.querySelector('span');
+            const icon = button ? button.querySelector('i') : null;
+            const label = button ? button.querySelector('span') : null;
 
             sections.forEach(section => {
                 if (section) {
@@ -3014,12 +3529,14 @@
                 }
             });
 
-            if (queueDetailsVisible) {
-                icon.className = 'fas fa-eye-slash';
-                label.textContent = 'Hide Progress';
-            } else {
-                icon.className = 'fas fa-eye';
-                label.textContent = 'Show Progress';
+            if (icon && label) {
+                if (queueDetailsVisible) {
+                    icon.className = 'fas fa-eye-slash';
+                    label.textContent = 'Hide Progress';
+                } else {
+                    icon.className = 'fas fa-eye';
+                    label.textContent = 'Show Progress';
+                }
             }
         }
 
@@ -3031,11 +3548,37 @@
             
             // Update progress text - show which file is being processed
             if (currentUploadIndex < uploadQueue.length) {
+                const currentFile = uploadQueue[currentUploadIndex];
                 document.getElementById('queueProgressText').textContent = 
-                    `Processing file ${current} of ${total}...`;
+                    `Processing ${current} of ${total}: ${currentFile.filename}`;
             } else {
                 document.getElementById('queueProgressText').textContent = 
                     `Completed ${total} of ${total} files`;
+            }
+            
+            // Update file list summary
+            const queueProgressFiles = document.getElementById('queueProgressFiles');
+            if (queueProgressFiles) {
+                const fileNames = uploadQueue.map((file, idx) => {
+                    let icon = '';
+                    let style = '';
+                    if (idx < currentUploadIndex || file.status === 'completed') {
+                        icon = '✓';
+                        style = 'color: var(--success); font-weight: 500;';
+                    } else if (idx === currentUploadIndex && isUploading) {
+                        icon = '⟳';
+                        style = 'color: var(--primary); font-weight: 600;';
+                    } else if (file.status === 'failed') {
+                        icon = '✗';
+                        style = 'color: var(--danger); font-weight: 500;';
+                    } else {
+                        icon = '○';
+                        style = 'color: var(--secondary);';
+                    }
+                    const shortName = file.filename.length > 25 ? file.filename.substring(0, 22) + '...' : file.filename;
+                    return `<span style="${style}">${icon} ${shortName}</span>`;
+                }).join(' • ');
+                queueProgressFiles.innerHTML = fileNames;
             }
             
             document.getElementById('queueProgressBar').style.width = `${percentage}%`;
@@ -3056,8 +3599,12 @@
                 let icon = '';
                 let statusText = '';
                 
-                // Determine status based on item.status field
-                if (item.status === 'completed') {
+                // Check current upload FIRST to ensure correct status after page refresh
+                if (index === currentUploadIndex && isUploading) {
+                    statusClass = 'processing';
+                    icon = '<i class="fas fa-spinner fa-spin queue-item-icon"></i>';
+                    statusText = 'Uploading';
+                } else if (item.status === 'completed') {
                     statusClass = 'completed';
                     icon = '<i class="fas fa-check-circle queue-item-icon"></i>';
                     statusText = 'Success';
@@ -3065,10 +3612,6 @@
                     statusClass = 'failed';
                     icon = '<i class="fas fa-times-circle queue-item-icon"></i>';
                     statusText = 'Failed';
-                } else if (index === currentUploadIndex && isUploading) {
-                    statusClass = 'processing';
-                    icon = '<i class="fas fa-spinner fa-spin queue-item-icon"></i>';
-                    statusText = 'Uploading';
                 } else if (index < currentUploadIndex) {
                     statusClass = 'completed';
                     icon = '<i class="fas fa-check-circle queue-item-icon"></i>';
@@ -3094,14 +3637,49 @@
             updateQueueToggleButton();
         }
 
+        // Helper to poll for upload completion after a page refresh
+        async function pollForCompletion(pdfId) {
+            addUploadLog(`Reconnected to an ongoing upload for ${pdfId}. Polling for completion...`, 'info');
+            document.getElementById('queueStatus').innerHTML = 
+                '<i class="fas fa-sync-alt fa-spin"></i><span>Reconnected, waiting for completion...</span>';
+
+            return new Promise(resolve => {
+                const poll = async () => {
+                    try {
+                        const response = await fetch(`/api/status/${pdfId}/`);
+                        const data = await response.json();
+                        // If the status is no longer 'uploading', the backend process has finished.
+                        if (data.success && data.data.status !== 'uploading') {
+                            addUploadLog(`Server process for ${pdfId} finished. Checking final status.`, 'info');
+                            resolve();
+                        } else {
+                            // If still uploading, wait and poll again.
+                            setTimeout(poll, 5000); // Poll every 5 seconds
+                        }
+                    } catch (error) {
+                        resolve(); // Resolve to allow the main flow to handle it as a potential failure
+                    }
+                };
+                poll(); // Start the first poll
+            });
+        }
+
         async function processUploadQueue() {
-            if (isUploading || currentUploadIndex >= uploadQueue.length) {
+            // Check if queue is already being processed or if we're at the end
+            if (currentUploadIndex >= uploadQueue.length) {
+                isUploading = false;
+                saveQueueToStorage();
+                return;
+            }
+            
+            // Prevent multiple simultaneous queue processing, but allow resume after refresh
+            if (isUploading && !uploadQueue.some(item => item.was_uploading)) {
+                // Already processing and not resuming from refresh
                 return;
             }
             
             isUploading = true;
             saveQueueToStorage();
-            clearUploadLogs();
             
             while (currentUploadIndex < uploadQueue.length) {
                 const currentFile = uploadQueue[currentUploadIndex];
@@ -3110,26 +3688,97 @@
                 currentFile.status = 'processing';
                 updateQueueUI();
                 setStatusBadgeState(currentFile.id, 'uploading');
-                
+
+                // If this is a resumed upload, poll for completion first.
+                // The 'was_uploading' flag is set by loadQueueFromStorage.
+                if (currentFile.was_uploading) {
+                    delete currentFile.was_uploading; // Clear the flag
+                    await pollForCompletion(currentFile.id);
+                    
+                    // After polling, fetch the actual status and update the queue
+                    try {
+                        const statusResponse = await fetch(`/api/status/${currentFile.id}/`);
+                        const statusData = await statusResponse.json();
+                        
+                        if (statusData.success && statusData.data.status === 'uploaded') {
+                            // File was successfully uploaded while we were disconnected
+                            currentFile.status = 'completed';
+                            setStatusBadgeState(currentFile.id, 'uploaded');
+                            await refreshUploadRow(currentFile.id);
+                            adjustStatCounters({ pendingDelta: -1, uploadedDelta: 1 });
+                            addUploadLog(`✓ Upload was completed during disconnect: ${currentFile.filename}`, 'success');
+                            document.getElementById('queueStatus').innerHTML = 
+                                '<i class="fas fa-check-circle" style="color: var(--success);"></i><span>Upload successful!</span>';
+                            
+                            // Save and move to next file
+                            saveQueueToStorage();
+                            currentUploadIndex++;
+                            updateQueueUI();
+                            saveQueueToStorage();
+                            
+                            // Small delay before next upload
+                            if (currentUploadIndex < uploadQueue.length) {
+                                addUploadLog(`Moving to next file (${currentUploadIndex + 1}/${uploadQueue.length})`, 'info');
+                                await new Promise(resolve => setTimeout(resolve, 1000));
+                            }
+                            continue; // Skip to next file in the queue
+                        } else if (statusData.success && statusData.data.status === 'failed') {
+                            // Upload failed while disconnected
+                            currentFile.status = 'failed';
+                            setStatusBadgeState(currentFile.id, 'failed');
+                            await refreshUploadRow(currentFile.id);
+                            addUploadLog(`✗ Upload failed during disconnect: ${currentFile.filename}`, 'error');
+                            document.getElementById('queueStatus').innerHTML = 
+                                '<i class="fas fa-times-circle" style="color: var(--danger);"></i><span>Upload failed!</span>';
+                            
+                            // Save and move to next file
+                            saveQueueToStorage();
+                            currentUploadIndex++;
+                            updateQueueUI();
+                            saveQueueToStorage();
+                            
+                            if (currentUploadIndex < uploadQueue.length) {
+                                addUploadLog(`Moving to next file (${currentUploadIndex + 1}/${uploadQueue.length})`, 'info');
+                                await new Promise(resolve => setTimeout(resolve, 1000));
+                            }
+                            continue; // Skip to next file
+                        }
+                        // If status is still 'ready' or 'pending', fall through to upload it
+                    } catch (error) {
+                        addUploadLog(`Warning: Could not fetch status after polling: ${error.message}`, 'warning');
+                        // Fall through to attempt upload anyway
+                    }
+                }
+
                 try {
                     // Upload the current file - this will wait for the browser to close
                     addUploadLog(`Starting upload for: ${currentFile.filename}`, 'info');
                     document.getElementById('queueStatus').innerHTML = 
                         '<i class="fas fa-spinner fa-spin"></i><span>Browser opened, waiting for upload to complete...</span>';
                     addUploadLog('Sending request to server...', 'info');
-                    
+
                     const response = await fetch(`/api/upload-lms/${currentFile.id}/`, { method: 'POST' });
                     addUploadLog('Server responded, processing result...', 'info');
                     const result = await response.json();
                     
                     if (result.success) {
-                        // Mark as completed
+                        // The API now handles idempotency. If it was already uploaded,
+                        // it will return success. We just need to refresh the UI.
+                        await refreshUploadRow(currentFile.id); // Refresh from server to get final state
+                        
                         currentFile.status = 'completed';
                         setStatusBadgeState(currentFile.id, 'uploaded');
                          adjustStatCounters({ pendingDelta: -1, uploadedDelta: 1 });
                         addUploadLog(`✓ Upload successful for: ${currentFile.filename}`, 'success');
                         document.getElementById('queueStatus').innerHTML = 
                             '<i class="fas fa-check-circle" style="color: var(--success);"></i><span>Upload successful!</span>';
+                    } else if (result.error_type === 'already_in_progress') {
+                        // This can happen if the server is already processing but the client lost connection.
+                        // We will poll for completion and then re-evaluate.
+                        await pollForCompletion(currentFile.id);
+                        addUploadLog(`Another upload process seems to be running for ${currentFile.filename}. Will retry in the next cycle.`, 'warning');
+                        // We can choose to skip this and retry later or just mark as failed for now.
+                        // For simplicity, we'll treat it as a temporary failure and move on.
                     } else {
                         // Mark as failed
                         currentFile.status = 'failed';
@@ -3140,6 +3789,9 @@
                             '<i class="fas fa-times-circle" style="color: var(--danger);"></i><span>Upload failed!</span>';
                     }
                     
+                    // Persist the result of this file immediately
+                    saveQueueToStorage();
+
                     // Move to next file
                     currentUploadIndex++;
                     updateQueueUI();
@@ -3199,6 +3851,35 @@
             // Load any existing upload queue from localStorage
             loadQueueFromStorage();
         });
+
+        // Get cookie value by name
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Toggle Stats on Mobile
+        function toggleStats() {
+            const stats = document.getElementById('quickStats');
+            const btn = document.querySelector('.stats-toggle-btn');
+            stats.classList.toggle('show');
+            
+            if (stats.classList.contains('show')) {
+                btn.innerHTML = '<i class="fas fa-times"></i> Hide Stats';
+            } else {
+                btn.innerHTML = '<i class="fas fa-chart-bar"></i> Show Stats';
+            }
+        }
     </script>
 </body>
 </html>

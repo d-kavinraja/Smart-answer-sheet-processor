@@ -21,11 +21,15 @@ upload_executor = ThreadPoolExecutor(max_workers=5)
 def get_mongodb_connection():
     """Get MongoDB connection"""
     try:
-        client = MongoClient('mongodb://localhost:27017/', serverSelectionTimeoutMS=5000)
-        db = client['lms_automation']
+        uri = getattr(settings, 'MONGODB_URI', 'mongodb://localhost:27017/')
+        db_name = getattr(settings, 'MONGODB_NAME', 'lms_automation')
+        client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+        # ping to raise an exception early if server is unreachable
+        client.admin.command('ping')
+        db = client[db_name]
         return db
     except Exception as e:
-        print(f"Database connection error: {e}")
+        print(f"Database connection error ({uri}): {e}")
         return None
 
 def index(request):
@@ -55,6 +59,9 @@ def index(request):
 @require_http_methods(["POST"])
 def upload_pdfs(request):
     """Handle PDF uploads"""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+        
     try:
         files = request.FILES.getlist('pdf_files')
         if not files:
@@ -115,6 +122,9 @@ def upload_pdfs(request):
         })
 
     except Exception as e:
+        print(f"Upload error: {str(e)}")  # Log for debugging
+        import traceback
+        traceback.print_exc()
         return JsonResponse({'success': False, 'error': 'Upload failed. Please try again.'})
 
 @csrf_exempt
@@ -234,6 +244,13 @@ def upload_to_lms(request, pdf_id):
     """Upload single PDF to LMS with comprehensive error checking"""
     try:
         pdf_upload = get_object_or_404(PDFUpload, id=pdf_id)
+
+        # Idempotency Check: If already uploaded, return success immediately.
+        if pdf_upload.is_uploaded:
+            return JsonResponse({'success': True, 'message': 'Already uploaded', 'status': 'uploaded'})
+        
+        if pdf_upload.status == 'uploading':
+            return JsonResponse({'success': False, 'error': 'An upload for this file is already in progress.', 'error_type': 'already_in_progress'})
 
         # Check credentials
         if not pdf_upload.has_credentials():
@@ -680,6 +697,13 @@ def recheck_configuration(request, pdf_id):
             }
         })
         
+    except Exception as e:
+        print(f"Recheck error: {e}")
+        traceback.print_exc()
+        return JsonResponse({
+            'success': False,
+            'error': 'Recheck failed. Please try again.'
+        })
     except Exception as e:
         print(f"Recheck error: {e}")
         traceback.print_exc()

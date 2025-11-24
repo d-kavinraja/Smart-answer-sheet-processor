@@ -26,6 +26,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Allow ngrok tunneling for form submissions
+CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app', 'https://*.ngrok.io']
+
+# CSRF Cookie settings for cross-origin
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = False  # Set to True if using HTTPS only
+SESSION_COOKIE_SAMESITE = 'Lax'
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -119,7 +127,7 @@ MODELS_DIR = BASE_DIR / 'models'
 YOLO_PRIMARY_PATH = MODELS_DIR / 'improved_weights.pt'
 YOLO_FALLBACK_PATH = MODELS_DIR / 'weights.pt'
 CRNN_REGISTER_PATH = MODELS_DIR / 'best_crnn_model(git).pth'
-CRNN_SUBJECT_PATH = MODELS_DIR / 'best_subject_model_final.pth'
+CRNN_SUBJECT_PATH = MODELS_DIR / 'best_subject_code_model_fulldataset.pth'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
