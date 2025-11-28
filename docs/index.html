@@ -1109,6 +1109,85 @@
             height: 20px;
         }
 
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--light);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 23, 0.98);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            padding-top: 80px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            padding: 40px 20px;
+            list-style: none;
+        }
+
+        .mobile-menu-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu-links a:hover {
+            color: var(--primary-light);
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-wrapper {
@@ -1140,6 +1219,10 @@
             .api-container {
                 grid-template-columns: 1fr;
             }
+
+            .floating-badge {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1147,8 +1230,40 @@
                 display: none;
             }
 
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                padding: 80px 0 40px;
+                min-height: auto;
+            }
+
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .badge {
+                font-size: 0.75rem;
+                padding: 6px 12px;
             }
 
             .features-grid,
@@ -1166,7 +1281,31 @@
 
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 24px;
+                gap: 20px;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-header p {
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .feature-card {
+                padding: 24px;
             }
 
             .footer-content {
@@ -1181,12 +1320,351 @@
             }
 
             .cta h2 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+
+            .cta p {
+                font-size: 1rem;
             }
 
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            /* Demo section mobile */
+            .demo-content {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .demo-sidebar {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                padding: 12px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .sidebar-item {
+                padding: 8px 16px;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+                font-size: 0.8rem;
+            }
+
+            .sidebar-item.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary);
+            }
+
+            .demo-main {
+                padding: 16px;
+            }
+
+            .demo-stats-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .demo-stat-box {
+                padding: 16px;
+            }
+
+            .demo-stat-num {
+                font-size: 1.5rem;
+            }
+
+            /* API Table mobile */
+            .api-table {
+                overflow-x: auto;
+            }
+
+            .api-table table {
+                min-width: 500px;
+            }
+
+            .api-table th,
+            .api-table td {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+            }
+
+            .api-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .api-info > p {
+                font-size: 0.95rem;
+            }
+
+            /* Code window mobile */
+            .code-window {
+                transform: none;
+                animation: none;
+            }
+
+            .code-body {
+                padding: 16px;
+                font-size: 0.75rem;
+                overflow-x: auto;
+            }
+
+            .code-line {
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logo-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .nav-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .nav-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .hero {
+                padding: 70px 0 30px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                margin-bottom: 24px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .section-header p {
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .feature-card p {
+                font-size: 0.85rem;
+            }
+
+            .feature-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .feature-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .tech-item {
+                padding: 20px 14px;
+            }
+
+            .tech-item img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .tech-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .tech-item span {
+                font-size: 0.75rem;
+            }
+
+            .workflow-step h3 {
+                font-size: 1rem;
+            }
+
+            .workflow-step p {
+                font-size: 0.8rem;
+            }
+
+            .step-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .step-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .step-num {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+
+            .cta {
+                padding: 60px 0;
+            }
+
+            .cta h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta p {
+                font-size: 0.9rem;
+            }
+
+            .footer-brand p {
+                font-size: 0.85rem;
+            }
+
+            .footer-links h4 {
+                font-size: 0.8rem;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom p {
+                font-size: 0.8rem;
+            }
+
+            /* Code window extra small */
+            .code-body {
+                padding: 12px;
+                font-size: 0.7rem;
+            }
+
+            .code-header {
+                padding: 10px 14px;
+            }
+
+            .code-title {
+                font-size: 0.7rem;
+            }
+
+            .code-dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            /* Demo section extra small */
+            .demo-header {
+                padding: 10px 14px;
+            }
+
+            .demo-title {
+                font-size: 0.75rem;
+            }
+
+            .demo-card h4 {
+                font-size: 0.9rem;
+            }
+
+            .progress-item {
+                font-size: 0.75rem;
+                padding: 8px 10px;
+            }
+
+            .demo-stat-label {
+                font-size: 0.7rem;
+            }
+
+            /* API section extra small */
+            .api-features span {
+                font-size: 0.85rem;
+            }
+
+            .api-feature svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-value {
+                font-size: 1.3rem;
+            }
+
+            .tech-grid {
+                gap: 8px;
+            }
+
+            .tech-item {
+                padding: 16px 10px;
             }
         }
 
@@ -1368,12 +1846,29 @@
                 <li><a href="#demo">Demo</a></li>
                 <li><a href="#api">API</a></li>
             </ul>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <a href="https://github.com/d-kavinraja/Smart-answer-sheet-processor" class="nav-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 GitHub
             </a>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul class="mobile-menu-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#workflow">Workflow</a></li>
+            <li><a href="#tech">Tech Stack</a></li>
+            <li><a href="#demo">Demo</a></li>
+            <li><a href="#api">API</a></li>
+            <li><a href="https://github.com/d-kavinraja/Smart-answer-sheet-processor">GitHub</a></li>
+        </ul>
+    </div>
 
     <!-- Hero -->
     <section class="hero">
@@ -1892,6 +2387,27 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            const isExpanded = mobileMenuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+
         // Fade-in animation on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
