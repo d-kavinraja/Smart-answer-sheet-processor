@@ -71,7 +71,7 @@
             padding: 0 24px;
         }
 
-        /* Subtle Background */
+        /* 3D Background Effects */
         .bg-gradient {
             position: fixed;
             top: 0;
@@ -82,6 +82,75 @@
             background: 
                 radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent),
                 radial-gradient(ellipse 60% 40% at 100% 100%, rgba(6, 182, 212, 0.1), transparent);
+        }
+
+        /* Animated Grid */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15), transparent 70%);
+            top: -200px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.12), transparent 70%);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(34, 197, 94, 0.08), transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.02); }
+        }
+
+        /* 3D Card Transforms */
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card-3d:hover {
+            transform: rotateX(5deg) rotateY(-5deg) translateZ(10px);
         }
 
         /* Navigation */
@@ -258,14 +327,35 @@
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 15px 35px rgba(14, 165, 233, 0.4),
+                0 0 20px rgba(14, 165, 233, 0.3);
         }
 
         .btn-secondary {
@@ -282,6 +372,26 @@
         /* Hero Visual */
         .hero-visual {
             position: relative;
+            perspective: 1000px;
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15), transparent 60%);
+            filter: blur(60px);
+            z-index: -1;
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
         }
 
         .code-window {
@@ -289,7 +399,22 @@
             border: 1px solid var(--border-light);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(14, 165, 233, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transform: rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+            animation: float-code 6s ease-in-out infinite;
+        }
+
+        .code-window:hover {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+        }
+
+        @keyframes float-code {
+            0%, 100% { transform: rotateY(-5deg) rotateX(5deg) translateY(0); }
+            50% { transform: rotateY(-5deg) rotateX(5deg) translateY(-10px); }
         }
 
         .code-header {
@@ -347,6 +472,60 @@
         .comment { color: var(--gray-dark); font-style: italic; }
         .variable { color: #89ddff; }
 
+        /* Cursor Animation */
+        .cursor {
+            color: var(--primary);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Floating Badges */
+        .floating-badge {
+            position: absolute;
+            background: var(--card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: float-badge 4s ease-in-out infinite;
+        }
+
+        .floating-badge svg {
+            width: 18px;
+            height: 18px;
+            color: var(--success);
+        }
+
+        .badge-1 {
+            top: 20%;
+            right: -30px;
+            animation-delay: 0s;
+        }
+
+        .badge-2 {
+            bottom: 20%;
+            left: -20px;
+            animation-delay: -2s;
+        }
+
+        .badge-2 svg {
+            color: var(--warning);
+        }
+
+        @keyframes float-badge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         /* Stats */
         .stats {
             padding: 50px 0;
@@ -357,7 +536,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 40px;
         }
 
@@ -368,8 +547,24 @@
         .stat-value {
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--primary-light);
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             letter-spacing: -0.02em;
+            position: relative;
+        }
+
+        .stat-item {
+            transition: transform 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: scale(1.1);
+        }
+
+        .stat-item:hover .stat-value {
+            text-shadow: 0 0 40px rgba(14, 165, 233, 0.5);
         }
 
         .stat-label {
@@ -424,31 +619,93 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 32px;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(14, 165, 233, 0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .feature-card:hover {
             border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                0 0 40px rgba(14, 165, 233, 0.1);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
         }
 
         .feature-icon {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(6, 182, 212, 0.1));
             border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
+            position: relative;
+            transition: all 0.4s;
+            transform-style: preserve-3d;
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: translateZ(20px) rotateY(10deg);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+
+        .feature-card:hover .feature-icon::before {
+            opacity: 0.5;
         }
 
         .feature-icon svg {
             width: 28px;
             height: 28px;
             color: var(--primary-light);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon svg {
+            transform: scale(1.1);
         }
 
         .feature-card h3 {
@@ -503,12 +760,42 @@
             justify-content: center;
             margin: 0 auto 24px;
             position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+        }
+
+        .step-icon::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            z-index: -1;
+            opacity: 0.3;
+            animation: rotate-border 8s linear infinite;
+        }
+
+        @keyframes rotate-border {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .workflow-step:hover .step-icon {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(14, 165, 233, 0.3),
+                0 0 60px rgba(14, 165, 233, 0.2);
         }
 
         .step-icon svg {
             width: 36px;
             height: 36px;
             color: var(--primary-light);
+            transition: transform 0.3s;
+        }
+
+        .workflow-step:hover .step-icon svg {
+            transform: scale(1.2);
         }
 
         .step-num {
@@ -550,18 +837,43 @@
             border-radius: 16px;
             padding: 28px 20px;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .tech-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .tech-item:hover {
             border-color: var(--primary);
-            transform: translateY(-6px);
+            transform: translateY(-12px) rotateX(10deg) scale(1.05);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(14, 165, 233, 0.15);
+        }
+
+        .tech-item:hover::after {
+            opacity: 1;
         }
 
         .tech-item img {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             margin-bottom: 14px;
+            transition: transform 0.4s;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .tech-item:hover img {
+            transform: translateZ(30px) scale(1.15) rotate(5deg);
         }
 
         .tech-item h4 {
@@ -853,7 +1165,7 @@
             }
 
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 24px;
             }
 
@@ -889,10 +1201,150 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Demo Section */
+        .demo-section {
+            background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
+        }
+
+        .demo-container {
+            perspective: 1000px;
+        }
+
+        .demo-window {
+            background: var(--card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 40px 100px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(14, 165, 233, 0.1);
+            transform: rotateX(5deg);
+            transition: transform 0.5s;
+        }
+
+        .demo-window:hover {
+            transform: rotateX(0deg);
+        }
+
+        .demo-header {
+            background: var(--dark);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .demo-title {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        .demo-content {
+            display: flex;
+            min-height: 350px;
+        }
+
+        .demo-sidebar {
+            width: 180px;
+            background: var(--dark);
+            padding: 20px 0;
+            border-right: 1px solid var(--border);
+        }
+
+        .sidebar-item {
+            padding: 12px 24px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-item.active {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--primary-light);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-item:hover {
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        .demo-main {
+            flex: 1;
+            padding: 24px;
+        }
+
+        .demo-card {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .demo-card h4 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: var(--light);
+        }
+
+        .demo-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .progress-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: var(--card);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .status-done { color: var(--success); }
+        .status-progress { color: var(--warning); }
+        .status-pending { color: var(--gray); }
+
+        .demo-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .demo-stat-box {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .demo-stat-num {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .demo-stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
     </style>
 </head>
 <body>
     <div class="bg-gradient"></div>
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
     <!-- Navigation -->
     <nav>
@@ -913,6 +1365,7 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="#workflow">Workflow</a></li>
                 <li><a href="#tech">Tech Stack</a></li>
+                <li><a href="#demo">Demo</a></li>
                 <li><a href="#api">API</a></li>
             </ul>
             <a href="https://github.com/d-kavinraja/Smart-answer-sheet-processor" class="nav-btn">
@@ -954,13 +1407,26 @@
                         <div class="code-body">
                             <div class="code-line"><span class="line-num">1</span><span class="keyword">import</span> torch</div>
                             <div class="code-line"><span class="line-num">2</span><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO</div>
-                            <div class="code-line"><span class="line-num">3</span></div>
-                            <div class="code-line"><span class="line-num">4</span><span class="keyword">class</span> <span class="function">PDFExtractor</span>:</div>
-                            <div class="code-line"><span class="line-num">5</span>    <span class="keyword">def</span> <span class="function">extract</span>(self, pdf):</div>
-                            <div class="code-line"><span class="line-num">6</span>        <span class="comment"># AI-powered extraction</span></div>
-                            <div class="code-line"><span class="line-num">7</span>        <span class="variable">result</span> = self.model(pdf)</div>
-                            <div class="code-line"><span class="line-num">8</span>        <span class="keyword">return</span> <span class="string">"Success"</span></div>
+                            <div class="code-line"><span class="line-num">3</span><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div>
+                            <div class="code-line"><span class="line-num">4</span></div>
+                            <div class="code-line"><span class="line-num">5</span><span class="keyword">class</span> <span class="function">PDFExtractor</span>:</div>
+                            <div class="code-line"><span class="line-num">6</span>    <span class="keyword">def</span> <span class="function">__init__</span>(self):</div>
+                            <div class="code-line"><span class="line-num">7</span>        self.model = YOLO(<span class="string">'model.pt'</span>)</div>
+                            <div class="code-line"><span class="line-num">8</span></div>
+                            <div class="code-line"><span class="line-num">9</span>    <span class="keyword">def</span> <span class="function">extract</span>(self, pdf_path):</div>
+                            <div class="code-line"><span class="line-num">10</span>        <span class="comment"># AI-powered extraction</span></div>
+                            <div class="code-line"><span class="line-num">11</span>        <span class="variable">results</span> = self.model(pdf_path)</div>
+                            <div class="code-line"><span class="line-num">12</span>        <span class="keyword">return</span> <span class="string">"Success"</span><span class="cursor">|</span></div>
                         </div>
+                    </div>
+                    <!-- Floating badges -->
+                    <div class="floating-badge badge-1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>99% Accuracy</span>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span>5x Faster</span>
                     </div>
                 </div>
             </div>
@@ -972,20 +1438,28 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-value">6+</div>
+                    <div class="stat-value" data-count="6">6+</div>
                     <div class="stat-label">Technologies</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">9</div>
+                    <div class="stat-value" data-count="9">9</div>
                     <div class="stat-label">API Endpoints</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">5x</div>
+                    <div class="stat-value" data-count="5">5x</div>
                     <div class="stat-label">Faster Processing</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">99%</div>
+                    <div class="stat-value" data-count="99">99%</div>
                     <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Automation</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">100+</div>
+                    <div class="stat-label">Files/Batch</div>
                 </div>
             </div>
         </div>
@@ -1060,6 +1534,36 @@
                     </div>
                     <h3>Real-time Monitoring</h3>
                     <p>Monitor upload progress with live status updates and comprehensive analytics.</p>
+                </div>
+                <div class="feature-card fade-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                        </svg>
+                    </div>
+                    <h3>MongoDB Storage</h3>
+                    <p>Secure NoSQL database for credentials, URLs, and file tracking with high availability.</p>
+                </div>
+                <div class="feature-card fade-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Secure Processing</h3>
+                    <p>End-to-end secure file handling with encrypted storage and safe data transmission.</p>
+                </div>
+                <div class="feature-card fade-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                    </div>
+                    <h3>OCR Technology</h3>
+                    <p>Advanced Tesseract OCR for accurate text recognition from scanned documents.</p>
                 </div>
             </div>
         </div>
@@ -1250,6 +1754,70 @@
         </div>
     </section>
 
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Preview</span>
+                <h2>See It In Action</h2>
+                <p>Watch how SmartAPS transforms your workflow with automated processing</p>
+            </div>
+            <div class="demo-container fade-up">
+                <div class="demo-window">
+                    <div class="demo-header">
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <span class="demo-title">SmartAPS Dashboard</span>
+                    </div>
+                    <div class="demo-content">
+                        <div class="demo-sidebar">
+                            <div class="sidebar-item active">Dashboard</div>
+                            <div class="sidebar-item">Upload</div>
+                            <div class="sidebar-item">Processing</div>
+                            <div class="sidebar-item">Analytics</div>
+                        </div>
+                        <div class="demo-main">
+                            <div class="demo-card">
+                                <h4>Recent Uploads</h4>
+                                <div class="demo-progress">
+                                    <div class="progress-item">
+                                        <span>exam_paper_01.pdf</span>
+                                        <span class="status-done">Completed</span>
+                                    </div>
+                                    <div class="progress-item">
+                                        <span>exam_paper_02.pdf</span>
+                                        <span class="status-progress">Processing...</span>
+                                    </div>
+                                    <div class="progress-item">
+                                        <span>exam_paper_03.pdf</span>
+                                        <span class="status-pending">Pending</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="demo-stats-row">
+                                <div class="demo-stat-box">
+                                    <span class="demo-stat-num">156</span>
+                                    <span class="demo-stat-label">Processed</span>
+                                </div>
+                                <div class="demo-stat-box">
+                                    <span class="demo-stat-num">12</span>
+                                    <span class="demo-stat-label">In Queue</span>
+                                </div>
+                                <div class="demo-stat-box">
+                                    <span class="demo-stat-num">98.5%</span>
+                                    <span class="demo-stat-label">Success Rate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA -->
     <section class="cta">
         <div class="container">
@@ -1354,6 +1922,73 @@
                 nav.style.background = 'rgba(2, 6, 23, 0.85)';
                 nav.style.borderColor = 'rgba(148, 163, 184, 0.1)';
             }
+        });
+
+        // Track mouse position for feature cards glow effect
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', `${x}%`);
+                card.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
+
+        // Parallax effect for orbs
+        window.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            orbs.forEach((orb, i) => {
+                const speed = (i + 1) * 20;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // Counter animation for stats
+        const animateCounters = () => {
+            document.querySelectorAll('.stat-value[data-count]').forEach(counter => {
+                const target = parseInt(counter.dataset.count);
+                const suffix = counter.textContent.replace(/[0-9]/g, '');
+                let count = 0;
+                const increment = target / 50;
+                
+                const updateCount = () => {
+                    count += increment;
+                    if (count < target) {
+                        counter.textContent = Math.ceil(count) + suffix;
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.textContent = target + suffix;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) statsObserver.observe(statsSection);
+
+        // Add stagger animation delay to feature cards
+        document.querySelectorAll('.feature-card').forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.1}s`;
+        });
+
+        // Add stagger animation delay to tech items
+        document.querySelectorAll('.tech-item').forEach((item, i) => {
+            item.style.transitionDelay = `${i * 0.05}s`;
         });
     </script>
 </body>
